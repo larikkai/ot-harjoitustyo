@@ -1,0 +1,69 @@
+commit 3b2b58980bcc6d5a13a11e1e8b9b79ab986a8d3f
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 22:02:10 2020 +0200
+
+    Remove file1 and change file2 to file22
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 4c03ca747017674584629e713ed2d416a5077124
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 21:52:24 2020 +0200
+
+    Add file1, file2 and file3
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 35bd138ae24ea2fb5a9752cb09a97e76e2f5c3c0
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 21:11:59 2020 +0200
+
+    Add more files
+
+ esimerkki.txt  | 2 +-
+ esimerkki2.txt | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit 2d2e3c28ce487da38085ebd68c7f65c880cf1f05
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 21:05:23 2020 +0200
+
+    Rename file
+
+ esimerkki2.txt => esimerkki.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f97665c594d80e8340751990c2f1eb83a570670d
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 21:04:27 2020 +0200
+
+    Remove file
+
+ esimerkki.txt | 6 ------
+ 1 file changed, 6 deletions(-)
+
+commit be5ae48270fba085dc962bc25b86e7d5700434c0
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 21:01:36 2020 +0200
+
+    Modify file
+
+ esimerkki2.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 1204b0f9a0845361eb5db1a0bee8ab7f292944e7
+Author: larikkai <kai.larikka@kolumbus.fi>
+Date:   Mon Mar 16 21:00:05 2020 +0200
+
+    Initial commit
+
+ Uusi tekstiasiakirja.txt | 20 ++++++++++++++++++++
+ esimerkki.txt            |  6 ++++++
+ esimerkki2.txt           |  2 ++
+ scripth.sh               |  1 +
+ 4 files changed, 29 insertions(+)
