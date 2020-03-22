@@ -3,24 +3,38 @@ package algoritmittehtavageneraattori.ui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import algoritmittehtavageneraattori.dao.FileUserDao;
+import algoritmittehtavageneraattori.domain.AlgoritmitehtavageneraattoriService;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     
     private Scene newUserScene;
     private Scene loginScene;
+    private Scene mainScene;
+    private AlgoritmitehtavageneraattoriService algoritmitehtavageneraattoriService;
+    
+    @Override
+    public void init() throws Exception {
+        Properties properties = new Properties();
+
+        properties.load(new FileInputStream("config.properties"));
+        
+        String userFile = properties.getProperty("userFile");
+
+        FileUserDao userDao = new FileUserDao(userFile);
+        algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao);
+    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -34,11 +48,13 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         loginButton.setOnAction(event -> {
             String username = usernameInput.getText();
-            if(username.length() < 3){
+            if(algoritmitehtavageneraattoriService.login(username)){
+                loginMessage.setText("");
+                primaryStage.setScene(mainScene);
+                usernameInput.setText("");
+            } else {
                 loginMessage.setText("invalid username");
                 loginMessage.setTextFill(Color.RED);
-            } else {
-                System.out.println(username);
             }
         });
         
@@ -66,7 +82,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         loginScene = new Scene(loginPane, 600, 400);
         
-        //new createNewUserPane
+        //new createNewUserScene
         
         Label newUsernameLabel = new Label("username:");
         TextField newUsernameInput = new TextField();
@@ -79,8 +95,14 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             if(newUsername.length() < 3){
                 createNewUserMessage.setText("invalid username length");
                 createNewUserMessage.setTextFill(Color.RED);
+            }else if(algoritmitehtavageneraattoriService.createUser(newUsername)) {
+                createNewUserMessage.setText("");
+                loginMessage.setText("new user created");
+                loginMessage.setTextFill(Color.GREEN);
+                primaryStage.setScene(loginScene);
             } else {
-                System.out.println("create new user "+newUsername);
+                createNewUserMessage.setText("username has to be unique");
+                createNewUserMessage.setTextFill(Color.RED);
             }
         });
         
@@ -108,6 +130,27 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         newUserPane.setCenter(newUsernamePane);
         
         newUserScene = new Scene(newUserPane, 600, 400);
+        
+        // main scene
+        
+        BorderPane mainPane = new BorderPane();
+        HBox menuPane = new HBox(10);
+        Label menuLabel = new Label("Welcome");
+        Button logoutButton = new Button("logout");
+        
+        logoutButton.setOnAction(event -> {
+            algoritmitehtavageneraattoriService.logout();
+            primaryStage.setScene(loginScene);
+        });
+        
+        menuPane.getChildren().addAll(logoutButton);
+        
+        mainPane.setTop(menuPane);
+        mainPane.setCenter(menuLabel);
+        
+        mainScene = new Scene(mainPane, 600, 400);
+        
+        // setup primary stage
         
         primaryStage.setTitle("AlgoritmitTehtavaGeneraattori");
         primaryStage.setScene(loginScene);
