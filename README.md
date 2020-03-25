@@ -1,18 +1,27 @@
-# Ohjelmistotekniikka kevät 2020
+# Algoritmit tehtavageneraattori
 
-## Harjoitustyö
+## Ohjelmistotekniikka kevät 2020 harjoitustyö
 
-Tekstiä jossa korostuskeinoina käytetään _kursivointia_ tai __boldausta__
-
-## Tehtävät
-### Viikko 1
-
-[gitlog.txt](https://github.com/larikkai/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-
-[komentorivi.txt](https://github.com/larikkai/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+## Kuvaus
+Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla ennalta määriteltyjä tehtäviä. 
 
 ## Dokumentaatio
-[Vaatimusmäärittely](https://github.com/larikkai/ot-harjoitustyo/blob/master/AlgoritmitTehtavaGeneraattori/dokumentointi/vaatimustenmaarittely.md)
+[Vaatimusmäärittely](/AlgoritmitTehtavaGeneraattori/dokumentointi/vaatimustenmaarittely.md)
 
-[Työaikakirjanpito](https://github.com/larikkai/ot-harjoitustyo/blob/master/AlgoritmitTehtavaGeneraattori/dokumentointi/tyoaikakirjanpito.md)
+[Työaikakirjanpito](/AlgoritmitTehtavaGeneraattori/dokumentointi/tyoaikakirjanpito.md)
+
+## Komentorivitoiminnot
+
+### Testaus
+
+Testit suoritetaan komennolla
+```
+mvn test
+```
+
+Testikattavuusraportin voi luoda komennolla
+```
+mvn jacoco:report
+```
+Kattavuusraporttia voi tarkastella avaamalla selaimella target/site/jacoco/index.html
 
