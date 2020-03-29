@@ -16,6 +16,7 @@ import algoritmittehtavageneraattori.dao.FileUserDao;
 import algoritmittehtavageneraattori.domain.AlgoritmitehtavageneraattoriService;
 import java.io.FileInputStream;
 import java.util.Properties;
+import javafx.scene.control.PasswordField;
 
 public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     
@@ -41,17 +42,21 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         // login scnece
         
         Label loginLabel = new Label("username:");
+        Label passwordLabel = new Label("password:");
         TextField usernameInput = new TextField();
+        PasswordField passwordInput = new PasswordField();
         Button loginButton = new Button("login");
         Button createButton = new Button("create new user");
         Label loginMessage = new Label();
         
         loginButton.setOnAction(event -> {
             String username = usernameInput.getText();
-            if(algoritmitehtavageneraattoriService.login(username)){
+            String password = passwordInput.getText();
+            if(algoritmitehtavageneraattoriService.login(username, password)){
                 loginMessage.setText("");
                 primaryStage.setScene(mainScene);
                 usernameInput.setText("");
+                passwordInput.setText("");
             } else {
                 loginMessage.setText("invalid username");
                 loginMessage.setTextFill(Color.RED);
@@ -60,22 +65,28 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         createButton.setOnAction(event -> {
             usernameInput.setText("");
+            passwordInput.setText("");
             primaryStage.setScene(newUserScene);
         });
         
         BorderPane loginPane = new BorderPane();
-        HBox inputPane = new HBox(10);
+        HBox usernameInputPane = new HBox(10);
+        HBox passwordInputPane = new HBox(10);
         HBox buttonsPane = new HBox(10);
         VBox inputLoginPane = new VBox(10);
         
-        inputPane.getChildren().addAll(loginLabel, usernameInput);
-        VBox.setMargin(inputPane, new Insets(0,65,0,0));
-        inputPane.setAlignment(Pos.CENTER);
+        usernameInputPane.getChildren().addAll(loginLabel, usernameInput);
+        passwordInputPane.getChildren().addAll(passwordLabel, passwordInput);
+        
+        VBox.setMargin(usernameInputPane, new Insets(0,65,0,0));
+        VBox.setMargin(passwordInputPane, new Insets(0,65,0,0));
+        usernameInputPane.setAlignment(Pos.CENTER);
+        passwordInputPane.setAlignment(Pos.CENTER);
         
         buttonsPane.getChildren().addAll(loginButton, createButton);
         buttonsPane.setAlignment(Pos.CENTER);
         
-        inputLoginPane.getChildren().addAll(loginMessage, inputPane, buttonsPane);
+        inputLoginPane.getChildren().addAll(loginMessage, usernameInputPane, passwordInputPane, buttonsPane);
         inputLoginPane.setAlignment(Pos.CENTER);
 
         loginPane.setCenter(inputLoginPane);
@@ -85,18 +96,23 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         //new createNewUserScene
         
         Label newUsernameLabel = new Label("username:");
+        Label newPasswordLabel = new Label("password:");
         TextField newUsernameInput = new TextField();
+        PasswordField newPasswordInput = new PasswordField();
         Button createNewUserButton = new Button("create");
         Button createNewUserLoginButton = new Button("back to login");
         Label createNewUserMessage = new Label();
         
         createNewUserButton.setOnAction(event -> {
             String newUsername = newUsernameInput.getText();
-            if(newUsername.length() < 3){
-                createNewUserMessage.setText("invalid username length");
+            String newPassword = newPasswordInput.getText();
+            if(newUsername.length() < 3 || newPassword.length() < 8){
+                createNewUserMessage.setText("invalid username or password length");
                 createNewUserMessage.setTextFill(Color.RED);
-            }else if(algoritmitehtavageneraattoriService.createUser(newUsername)) {
+            }else if(algoritmitehtavageneraattoriService.createUser(newUsername, newPassword)) {
                 createNewUserMessage.setText("");
+                newUsernameInput.setText("");
+                newPasswordInput.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
                 primaryStage.setScene(loginScene);
@@ -114,6 +130,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         BorderPane newUserPane = new BorderPane();
         HBox newUsernameInputPane = new HBox(10);
+        HBox newPasswordInputPane = new HBox(10);
         HBox newUsernameButtonsPane = new HBox(10);
         VBox newUsernamePane = new VBox(10);
         
@@ -121,10 +138,14 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         VBox.setMargin(newUsernameInputPane, new Insets(0,65,0,0));
         newUsernameInputPane.setAlignment(Pos.CENTER);
         
+        newPasswordInputPane.getChildren().addAll(newPasswordLabel, newPasswordInput);
+        VBox.setMargin(newPasswordInputPane, new Insets(0,65,0,0));
+        newPasswordInputPane.setAlignment(Pos.CENTER);
+        
         newUsernameButtonsPane.getChildren().addAll(createNewUserButton, createNewUserLoginButton);
         newUsernameButtonsPane.setAlignment(Pos.CENTER);
         
-        newUsernamePane.getChildren().addAll(createNewUserMessage, newUsernameInputPane, newUsernameButtonsPane);
+        newUsernamePane.getChildren().addAll(createNewUserMessage, newUsernameInputPane, newPasswordInputPane, newUsernameButtonsPane);
         newUsernamePane.setAlignment(Pos.CENTER);
         
         newUserPane.setCenter(newUsernamePane);

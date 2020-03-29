@@ -1,6 +1,7 @@
 package algoritmittehtavageneraattori.domain;
 
 import algoritmittehtavageneraattori.dao.UserDao;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class AlgoritmitehtavageneraattoriService {
     
@@ -11,11 +12,12 @@ public class AlgoritmitehtavageneraattoriService {
         this.userDao = userDao;
     }
     
-    public boolean createUser(String username)  {   
+    public boolean createUser(String username, String password)  {   
         if (userDao.findByUsername(username) != null) {
             return false;
         }
-        User user = new User(username);
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(11));
+        User user = new User(username, hashedPassword);
         try {
             userDao.create(user);
         } catch(Exception e) {
@@ -25,9 +27,9 @@ public class AlgoritmitehtavageneraattoriService {
         return true;
     }
     
-    public boolean login(String username) {
+    public boolean login(String username, String password) {
         User user = userDao.findByUsername(username);
-        if (user == null) {
+        if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
             return false;
         }
         

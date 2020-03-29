@@ -3,18 +3,20 @@ package algoritmittehtavageneraattori.domain;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserTest {
     
     User user;
     User user2;
     User user3;
+    String password = BCrypt.hashpw("test", BCrypt.gensalt(11));
     
     @Before
     public void setUp(){
-        user = new User("user");
-        user2 = new User("user");
-        user3 = new User("notUser");
+        user = new User("user", password);
+        user2 = new User("user", password);
+        user3 = new User("notUser", password);
     }
     
     @Test
@@ -25,6 +27,17 @@ public class UserTest {
     @Test
     public void userWithoutSameUsernameAreNotEqual() {
         assertFalse(user2.equals(user3));
+    }
+    
+    @Test
+    public void passwordIsNotPlainText(){
+        System.out.print(user.getPassword());
+        assertFalse("test" == user.getPassword());
+    }
+    
+    @Test
+    public void methodReturnsCorrectPassword(){
+        assertTrue(BCrypt.checkpw("test", user.getPassword()));
     }
     
     @Test
