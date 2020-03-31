@@ -12,6 +12,13 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla ennal
 
 ## Komentorivitoiminnot
 
+### Koodin suorittaminen
+
+Koodin pystyy suorittamaan komentoriviltä komennolla:
+```
+mvn compile exec:java -Dexec.mainClass=algoritmittehtavageneraattori.ui.AlgoritmitTehtavaGeneraattoriUi
+```
+
 ### Testaus
 
 Testit suoritetaan komennolla
