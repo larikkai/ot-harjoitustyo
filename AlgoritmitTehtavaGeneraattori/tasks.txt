@@ -1,0 +1,3 @@
+testi1;rivi1 rivi2;1;1;1;true;1;1
+teest2;erssfd< ds fsd fsdfs f< hfgdjhgfjhfg;2;2;2;false;1;1
+teeeeestu;dfsfsdfsdf DS fs gdfgdfg dg dfg dgd ;1;1;3;false;1;1
