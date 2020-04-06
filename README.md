@@ -10,6 +10,8 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla ennal
 
 [Työaikakirjanpito](/AlgoritmitTehtavaGeneraattori/dokumentointi/tyoaikakirjanpito.md)
 
+[Arkkitehtuurikuvaus](/AlgoritmitTehtavaGeneraattori/dokumentointi/arkkitehtuurikuvaus.md)
+
 ## Komentorivitoiminnot
 
 ### Koodin suorittaminen
@@ -30,5 +32,13 @@ Testikattavuusraportin voi luoda komennolla
 ```
 mvn jacoco:report
 ```
-Kattavuusraporttia voi tarkastella avaamalla selaimella target/site/jacoco/index.html
+Testien kattavuusraporttia voi tarkastella avaamalla tiedoston target/site/jacoco/index.html
+
+### Checkstyle
+
+Checkstyle on käytössä ja määritykset löytyvät tiedostosta [checkstyle.xml](/checkstyle.xml) ja tarkistuksen voi suorittaa komennolla:
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
+Checkstyle-raporttia voi tarkastella avaamalla tiedoston /target/site/checkstyle.html
 
