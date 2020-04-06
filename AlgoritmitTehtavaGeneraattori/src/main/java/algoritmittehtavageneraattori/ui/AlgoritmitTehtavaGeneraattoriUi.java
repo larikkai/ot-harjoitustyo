@@ -285,7 +285,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         Button singleTaskSolveButton = new Button("Solve");
         
         singleTaskSolveButton.setOnAction(event -> {
-            if (singleTaskUserInput.getText().equals(selectedTask.getResult())) {
+            if (algoritmitehtavageneraattoriService.compareResults(singleTaskUserInput.getText(), selectedTask)) {
                 selectedTask.setDone();
                 singleTaskSolveMessage.setText("Correct answer");
                 singleTaskSolveMessage.setTextFill(Color.GREEN);
