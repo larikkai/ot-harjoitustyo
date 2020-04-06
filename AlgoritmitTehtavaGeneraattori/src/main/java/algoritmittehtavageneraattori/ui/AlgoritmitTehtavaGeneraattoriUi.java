@@ -142,7 +142,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         createNewUserButton.setOnAction(event -> {
             String newUsername = newUsernameInput.getText();
             String newPassword = newPasswordInput.getText();
-            if (newUsername.length() < 3 || newPassword.length() < 8) {
+            if (newUsername.length() < 3 || newUsername.length() > 10 || newPassword.length() < 8) {
                 createNewUserMessage.setText("invalid username or password length");
                 createNewUserMessage.setTextFill(Color.RED);
             } else if (algoritmitehtavageneraattoriService.createUser(newUsername, newPassword)) {
