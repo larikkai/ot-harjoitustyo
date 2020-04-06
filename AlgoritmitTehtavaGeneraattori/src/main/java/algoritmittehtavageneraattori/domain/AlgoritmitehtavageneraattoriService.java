@@ -26,7 +26,7 @@ public class AlgoritmitehtavageneraattoriService {
         User user = new User(username, hashedPassword);
         try {
             userDao.create(user);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
 
@@ -48,23 +48,30 @@ public class AlgoritmitehtavageneraattoriService {
         loggedIn = null;  
     }
     
-    public User getLoggedUser(){
+    public User getLoggedUser() {
         return loggedIn;
     }
     
-    public boolean createTask(String title, String description, String result, int difficulty, int gategoryId, String input){
-        String hashedResult = BCrypt.hashpw(result, BCrypt.gensalt(11));
-        Task task = new Task(title, description, result, difficulty, taskDao.getAll().size()+1, gategoryId, input);
-        try {
-            taskDao.create(task);
-        } catch(Exception ex) {
+    public boolean compareResults(String userInputResult, Task task) {
+        if (!BCrypt.checkpw(userInputResult, task.getResult())) {
             return false;
         }
         return true;
     }
     
-    public List<Task> getTasks(){
-        if(loggedIn == null){
+    public boolean createTask(String title, String description, String result, int difficulty, int gategoryId, String input) {
+        String hashedResult = BCrypt.hashpw(result, BCrypt.gensalt(11));
+        Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, gategoryId, input);
+        try {
+            taskDao.create(task);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+    
+    public List<Task> getTasks() {
+        if (loggedIn == null) {
             return new ArrayList<>();
         }
         return taskDao.getAll();

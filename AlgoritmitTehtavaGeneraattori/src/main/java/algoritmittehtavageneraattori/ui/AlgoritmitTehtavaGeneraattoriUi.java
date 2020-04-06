@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Properties;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -61,23 +60,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         FileTaskDao taskDao = new FileTaskDao(taskFile);
         algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao, taskDao);
     }
-
-    /*public void redrawTasklist(){
-        tasksGridPane.getChildren().clear();
-        List<Task> tasks = algoritmitehtavageneraattoriService.getTasks();
-        Collections.sort(tasks);
-        int row = 0;
-        int cell = 0;
-        for(Task task : tasks){
-            tasksGridPane.add(createTaskNode(task), cell++, row);
-            if(cell == 5){
-                cell=0;
-                row++;
-            }
-        }
-    }*/
     
-     public void redrawTasklist(){
+    public void redrawTasklist() {
         tableView.getItems().clear();
         List<Task> tasks = algoritmitehtavageneraattoriService.getTasks();
         Collections.sort(tasks);
@@ -101,7 +85,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         loginButton.setOnAction(event -> {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
-            if(algoritmitehtavageneraattoriService.login(username, password)){
+            if (algoritmitehtavageneraattoriService.login(username, password)) {
                 loginMessage.setText("");
                 menuLabel.setText("Welcome " + username);
                 primaryStage.setScene(mainScene);
@@ -130,8 +114,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         usernameInputPane.getChildren().addAll(loginLabel, usernameInput);
         passwordInputPane.getChildren().addAll(passwordLabel, passwordInput);
         
-        VBox.setMargin(usernameInputPane, new Insets(0,65,0,0));
-        VBox.setMargin(passwordInputPane, new Insets(0,65,0,0));
+        VBox.setMargin(usernameInputPane, new Insets(0, 65, 0, 0));
+        VBox.setMargin(passwordInputPane, new Insets(0, 65, 0, 0));
         usernameInputPane.setAlignment(Pos.CENTER);
         passwordInputPane.setAlignment(Pos.CENTER);
         
@@ -158,10 +142,10 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         createNewUserButton.setOnAction(event -> {
             String newUsername = newUsernameInput.getText();
             String newPassword = newPasswordInput.getText();
-            if(newUsername.length() < 3 || newPassword.length() < 8){
+            if (newUsername.length() < 3 || newPassword.length() < 8) {
                 createNewUserMessage.setText("invalid username or password length");
                 createNewUserMessage.setTextFill(Color.RED);
-            }else if(algoritmitehtavageneraattoriService.createUser(newUsername, newPassword)) {
+            } else if (algoritmitehtavageneraattoriService.createUser(newUsername, newPassword)) {
                 createNewUserMessage.setText("");
                 newUsernameInput.setText("");
                 newPasswordInput.setText("");
@@ -187,11 +171,11 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         VBox newUsernamePane = new VBox(10);
         
         newUsernameInputPane.getChildren().addAll(newUsernameLabel, newUsernameInput);
-        VBox.setMargin(newUsernameInputPane, new Insets(0,65,0,0));
+        VBox.setMargin(newUsernameInputPane, new Insets(0, 65, 0, 0));
         newUsernameInputPane.setAlignment(Pos.CENTER);
         
         newPasswordInputPane.getChildren().addAll(newPasswordLabel, newPasswordInput);
-        VBox.setMargin(newPasswordInputPane, new Insets(0,65,0,0));
+        VBox.setMargin(newPasswordInputPane, new Insets(0, 65, 0, 0));
         newPasswordInputPane.setAlignment(Pos.CENTER);
         
         newUsernameButtonsPane.getChildren().addAll(createNewUserButton, createNewUserLoginButton);
@@ -246,7 +230,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         newTaskInputPane.add(newTaskGategoryIdInput, 1, 5);
         
         Button createNewTask = new Button("create");
-        newTaskInputPane.add(createNewTask, 1,6);
+        newTaskInputPane.add(createNewTask, 1, 6);
         
         VBox newTaskPane = new VBox(10);
         newTaskPane.setAlignment(Pos.CENTER);
@@ -262,10 +246,10 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             int difficulty = Integer.valueOf(newTaskDifficultyInput.getText());
             int gategoryId = Integer.valueOf(newTaskGategoryIdInput.getText());
             String input = newTaskInputInput.getText().trim();
-            if(title.length() < 5 || description.length() < 10) {
+            if (title.length() < 5 || description.length() < 10) {
                 newTaskMessage.setText("invalid title or description");
                 newTaskMessage.setTextFill(Color.RED);
-            }else{
+            } else {
                 algoritmitehtavageneraattoriService.createTask(title, description, result, difficulty, gategoryId, input);
                 newTaskMessage.setText("new task created");
                 newTaskMessage.setTextFill(Color.GREEN);
@@ -301,7 +285,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         Button singleTaskSolveButton = new Button("Solve");
         
         singleTaskSolveButton.setOnAction(event -> {
-            if(singleTaskUserInput.getText().equals(selectedTask.getResult())){
+            if (singleTaskUserInput.getText().equals(selectedTask.getResult())) {
                 selectedTask.setDone();
                 singleTaskSolveMessage.setText("Correct answer");
                 singleTaskSolveMessage.setTextFill(Color.GREEN);
@@ -362,7 +346,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         selectedTaskList.addListener(new ListChangeListener<Task>() {
             @Override
             public void onChanged(Change<? extends Task> change) {
-                if(!selectedTaskList.isEmpty()){ selectedTask = selectedTaskList.get(0);
+                if (!selectedTaskList.isEmpty()) { 
+                    selectedTask = selectedTaskList.get(0);
                     singleTaskTitleLabel.setText(selectedTask.getTitle());
                     singleTaskDesciptionLabel.setText(selectedTask.getDescription());
                     mainPane.setCenter(singleTaskPane);
@@ -415,7 +400,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         System.out.print("App closing");
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
     

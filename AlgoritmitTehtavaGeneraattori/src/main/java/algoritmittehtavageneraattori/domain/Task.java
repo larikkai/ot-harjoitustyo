@@ -1,6 +1,6 @@
 package algoritmittehtavageneraattori.domain;
 
-public class Task implements Comparable<Task>{
+public class Task implements Comparable<Task> {
     
     private final String title;
     private final String description;
@@ -22,49 +22,49 @@ public class Task implements Comparable<Task>{
         this.input = input;
     }
     
-    public String getTitle(){
+    public String getTitle() {
         return this.title;
     }
     
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
     
-    public String getResult(){
+    public String getResult() {
         return this.result;
     }
     
-    public int getDifficulty(){
+    public int getDifficulty() {
         return this.difficulty;
     }
     
-    public void setDifficulty(int difficulty){
+    public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
     
-    public int getId(){
+    public int getId() {
         return this.id;
     }
     
-    public boolean getDone(){
+    public boolean getDone() {
         return this.done;
     }
     
-    public void setDone(){
+    public void setDone() {
         this.done = true;
     }
     
-    public int getGategoryId(){
+    public int getGategoryId() {
         return this.gategoryId;
     }
     
-    public String getInput(){
+    public String getInput() {
         return this.input;
     }
     
     @Override
-    public boolean equals(Object o){
-        if(!(o instanceof Task)){
+    public boolean equals(Object o) {
+        if (!(o instanceof Task)) {
             return false;
         }
         Task o2 = (Task) o;
@@ -73,10 +73,10 @@ public class Task implements Comparable<Task>{
 
     @Override
     public int compareTo(Task other) {
-        if(this.gategoryId-other.gategoryId == 0){
-            return this.difficulty-other.difficulty;
+        if (this.gategoryId - other.gategoryId == 0) {
+            return this.difficulty - other.difficulty;
         }
-        return this.gategoryId-other.gategoryId;
+        return this.gategoryId - other.gategoryId;
     }
     
 }

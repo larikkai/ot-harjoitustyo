@@ -2,12 +2,15 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 <module name='Checker'>
 
+    <!-- asetetaan kieliasetukset englanniksi. -->
     <property name="localeCountry" value="EN"/>
     <property name="localeLanguage" value="en"/>
 
     <module name='TreeWalker'>
 
         <property name='tabWidth' value='4' />
+
+        <!-- Block Checks -->
 
         <module name='EmptyBlock' />
         <module name='LeftCurly' />
@@ -22,6 +25,8 @@
         </module>
         <module name="NestedTryDepth"/>
 
+        <!-- Miscellaneous -->
+
         <module name='Indentation' />
         <module name="OneStatementPerLine"/>
         <module name="MethodLength">
@@ -29,6 +34,8 @@
             <property name="max" value="20"/>
             <property name="countEmpty" value="false"/>
         </module>
+
+        <!--- Naming Conventions -->
 
         <module name='ClassTypeParameterName' />
         <module name='ConstantName' />
@@ -45,6 +52,8 @@
         <module name='ParameterName' />
         <module name='StaticVariableName' />
         <module name='TypeName' />
+
+        <!-- Whitespace -->
 
         <module name='GenericWhitespace' />
         <module name='EmptyForInitializerPad' />
@@ -70,9 +79,14 @@
         </module>
     </module>
 
+    <!-- File Length -->
+
     <module name='FileLength'>
         <property name='max' value='500' />
     </module>
 
+    <module name="SuppressionFilter">
+        <property name="file" value="skipped_files.xml" />
+    </module>
 
 </module>

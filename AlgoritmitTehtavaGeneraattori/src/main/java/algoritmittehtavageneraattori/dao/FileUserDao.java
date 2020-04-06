@@ -25,7 +25,7 @@ public class FileUserDao implements UserDao {
                 User u = new User(parts[0], parts[1]);
                 users.add(u);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -37,7 +37,7 @@ public class FileUserDao implements UserDao {
                 writer.write(user.getUsername() + ";" + user.getPassword() + "\n");
             }
             writer.close();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

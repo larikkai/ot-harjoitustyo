@@ -3,10 +3,10 @@ package algoritmittehtavageneraattori.domain;
 
 public class User {
     
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -21,8 +21,9 @@ public class User {
     
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof User)) return false;
-        
+        if (!(o instanceof User)) {
+            return false;
+        }
         User other = (User) o;
         return username.equals(other.username);
     }
