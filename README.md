@@ -10,7 +10,7 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla ennal
 
 [Työaikakirjanpito](/AlgoritmitTehtavaGeneraattori/dokumentointi/tyoaikakirjanpito.md)
 
-[Arkkitehtuurikuvaus](/AlgoritmitTehtavaGeneraattori/dokumentointi/arkkitehtuurikuvaus.md)
+[Arkkitehtuurikuvaus](/AlgoritmitTehtavaGeneraattori/dokumentointi/arkkitehtuuri.md)
 
 ## Komentorivitoiminnot
 

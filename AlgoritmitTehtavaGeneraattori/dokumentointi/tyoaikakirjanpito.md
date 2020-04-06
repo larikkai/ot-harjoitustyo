@@ -11,5 +11,5 @@
 | 31.3  | 1    | dokumentaation ja henk.todo tarkastelua |
 | 1.4   | 3    | käyttöliittymän suunnittelua ja korjausta |
 | 5.4   | 9    | tehtävä toiminnallisuuden lisääminen (näkymä, lisäys, ratkaisu) ja testit |
-| 6.4   | 1    | checkstyle korjaukset
-| yht   | 38   | | 
+| 6.4   | 3    | checkstyle korjaukset ja arkkitehtuuri.md ja muun dokumentaation päivittäminen |
+| yht   | 40   | | 
