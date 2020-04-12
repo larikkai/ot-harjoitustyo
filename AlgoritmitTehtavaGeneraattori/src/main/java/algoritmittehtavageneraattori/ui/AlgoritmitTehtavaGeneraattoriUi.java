@@ -80,8 +80,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        // login scnece
         
+        // login scnece
         Label loginLabel = new Label("username:");
         Label passwordLabel = new Label("password:");
         TextField usernameInput = new TextField();
@@ -138,7 +138,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         loginScene = new Scene(loginPane, 400, 200);
         
         //new createNewUserScene
-        
         Label newUsernameLabel = new Label("username:");
         Label newPasswordLabel = new Label("password:");
         TextField newUsernameInput = new TextField();
@@ -197,7 +196,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         newUserScene = new Scene(newUserPane, 400, 200);
         
         // new task scene
-        
         GridPane newTaskInputPane = new GridPane();
         newTaskInputPane.setAlignment(Pos.CENTER);
         Label newTaskMessage = new Label();
@@ -274,7 +272,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         newTaskScene = new Scene(newTaskPane, 1200, 800);
         
         // single task scene
-        
         BorderPane singleTaskPane = new BorderPane();
         VBox singleTaskMiddlePane = new VBox(10);
         HBox singleTaskResultPane = new HBox(10);
@@ -308,8 +305,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         });
         
         singleTaskResultPane.getChildren().addAll(singleTaskUserInput, singleTaskSolveButton);
-   
-        Label singleTaskTestLabel = new Label("TESTIT \nTÄNNE");
         
         singleTaskMiddlePane.getChildren().addAll(singleTaskDesciptionLabel, singleTaskInputLabel, singleTaskSolveMessage, singleTaskResultPane);
         VBox.setMargin(singleTaskDesciptionLabel, new Insets(0, 20, 0, 20));
@@ -320,16 +315,13 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         singleTaskPane.setTop(singleTaskTitleLabel);
         singleTaskPane.setCenter(singleTaskMiddlePane);
         BorderPane.setAlignment(singleTaskTitleLabel, Pos.TOP_CENTER);
-        singleTaskPane.setBottom(singleTaskTestLabel);
         
         // main scene
-        
         BorderPane mainPane = new BorderPane();
         HBox menuPane = new HBox(10);
         Button logoutButton = new Button("logout");
         Button newTaskButton = new Button("new task");
         Button mainButton = new Button("main");
-        Button tasksButton = new Button("tasks");
         tasksGridPane = new GridPane();
         tasksGridPane.setAlignment(Pos.CENTER);
         menuLabel.setAlignment(Pos.CENTER);
@@ -427,16 +419,9 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             singleTaskSolveMessage.setText("");
         });
         
-        tasksButton.setOnAction(event -> {
-            redrawTasklist();
-            //mainPane.setCenter(tasksGridPane);
-            //mainPane.setLeft(tableView);
-        });
-        
-        menuPane.getChildren().addAll(menuBar, mainButton, tasksButton, newTaskButton, logoutButton);
+        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, logoutButton);
         menuPane.setAlignment(Pos.TOP_LEFT);
         
-        //mainPane.setLeft(taskScrollPane);
         mainPane.setTop(menuPane);
         mainPane.setCenter(menuLabel);
         mainPane.setLeft(tableView);
@@ -444,7 +429,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         mainScene = new Scene(mainPane, 1200, 800);
         
         // setup primary stage
-        
         primaryStage.setTitle("AlgoritmitTehtavaGeneraattori");
         primaryStage.setScene(loginScene);
         primaryStage.show();
