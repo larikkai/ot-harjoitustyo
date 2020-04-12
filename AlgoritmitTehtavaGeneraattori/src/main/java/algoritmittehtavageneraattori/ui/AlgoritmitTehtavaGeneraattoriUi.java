@@ -16,12 +16,19 @@ import algoritmittehtavageneraattori.dao.FileUserDao;
 import algoritmittehtavageneraattori.dao.FileTaskDao;
 import algoritmittehtavageneraattori.domain.AlgoritmitehtavageneraattoriService;
 import algoritmittehtavageneraattori.domain.Task;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -30,6 +37,7 @@ import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
 public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     
@@ -323,6 +331,49 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         tasksGridPane.setAlignment(Pos.CENTER);
         menuLabel.setAlignment(Pos.CENTER);
         
+        Menu file = new Menu("File");
+        Menu fileSubmenu = new Menu("Load");
+        MenuItem loadFileItem = new MenuItem("Load new task list");
+        loadFileItem.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Load tasks file");
+            configureFileChooser(fileChooser);
+            File newTaskFile = fileChooser.showOpenDialog(primaryStage);
+            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
+            if(newTaskFile != null) {
+                try {
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
+                    algoritmitehtavageneraattoriService.loadTasks();
+                    redrawTasklist();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        MenuItem addFileItem = new MenuItem("Load new tasks to list");
+        addFileItem.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Load tasks file");
+            configureFileChooser(fileChooser);
+            File newTaskFile = fileChooser.showOpenDialog(primaryStage);
+            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
+            if(newTaskFile != null) {
+                try {
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
+                    algoritmitehtavageneraattoriService.addTasks();
+                    redrawTasklist();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        fileSubmenu.getItems().addAll(loadFileItem, addFileItem);
+        file.getItems().add(fileSubmenu);
+        
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(file);
+        
         tableView = new TableView();
         TableColumn<String, Task> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -378,8 +429,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             //mainPane.setLeft(tableView);
         });
         
-        menuPane.getChildren().addAll(mainButton, tasksButton, newTaskButton, logoutButton);
-        menuPane.setAlignment(Pos.TOP_RIGHT);
+        menuPane.getChildren().addAll(menuBar, mainButton, tasksButton, newTaskButton, logoutButton);
+        menuPane.setAlignment(Pos.TOP_LEFT);
         
         //mainPane.setLeft(taskScrollPane);
         mainPane.setTop(menuPane);
@@ -394,6 +445,12 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }
+    
+    private static void configureFileChooser(
+        final FileChooser fileChooser) {      
+            fileChooser.setTitle("Load task file");                 
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+        }
     
     @Override
     public void stop() {

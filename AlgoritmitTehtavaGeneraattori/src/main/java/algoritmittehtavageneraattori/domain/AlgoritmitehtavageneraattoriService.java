@@ -77,4 +77,12 @@ public class AlgoritmitehtavageneraattoriService {
         return taskDao.getAll();
     }
     
+    public void loadTasks() {
+        taskDao.loadNewTasks();
+    }
+    
+    public void addTasks() {
+        taskDao.addNewTasks();
+    }
+    
 }

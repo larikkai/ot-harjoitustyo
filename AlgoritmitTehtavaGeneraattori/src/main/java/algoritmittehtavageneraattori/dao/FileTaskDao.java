@@ -15,6 +15,10 @@ public class FileTaskDao implements TaskDao {
     public FileTaskDao(String file) {
         tasks = new ArrayList<>();
         this.file = file;
+        load();
+    }
+    
+    public void load() {
         try {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
@@ -60,4 +64,15 @@ public class FileTaskDao implements TaskDao {
         return task;
     }
     
+    @Override
+    public void loadNewTasks() {
+        tasks.clear();
+        load();
+    }
+    
+    @Override
+    public void addNewTasks() {
+        load();
+    }
+
 }
