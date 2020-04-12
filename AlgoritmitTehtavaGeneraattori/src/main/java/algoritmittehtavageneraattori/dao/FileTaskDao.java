@@ -73,6 +73,7 @@ public class FileTaskDao implements TaskDao {
     @Override
     public void addNewTasks() {
         load();
+        save();
     }
 
 }

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Collections;
 import java.util.List;
@@ -342,7 +343,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
             if(newTaskFile != null) {
                 try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), COPY_ATTRIBUTES);
                     algoritmitehtavageneraattoriService.loadTasks();
                     redrawTasklist();
                 } catch (IOException e){
