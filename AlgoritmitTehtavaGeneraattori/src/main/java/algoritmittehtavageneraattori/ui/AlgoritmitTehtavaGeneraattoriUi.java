@@ -284,6 +284,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         Label singleTaskTitleLabel = new Label();
         singleTaskTitleLabel.setStyle("-fx-font-size: 40px");
         Label singleTaskDesciptionLabel = new Label();
+        Label singleTaskInputLabel = new Label();
         singleTaskDesciptionLabel.setMaxWidth(700);
         singleTaskDesciptionLabel.setWrapText(true);
         singleTaskDesciptionLabel.setStyle("-fx-font-size: 20px");
@@ -298,6 +299,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                 selectedTask.setDone();
                 singleTaskSolveMessage.setText("Correct answer");
                 singleTaskSolveMessage.setTextFill(Color.GREEN);
+                singleTaskUserInput.setText("");
                 redrawTasklist();
             } else {
                 singleTaskSolveMessage.setText("Wrong answer");
@@ -310,8 +312,9 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
    
         Label singleTaskTestLabel = new Label("TESTIT \nTÄNNE");
         
-        singleTaskMiddlePane.getChildren().addAll(singleTaskDesciptionLabel, singleTaskSolveMessage, singleTaskResultPane);
+        singleTaskMiddlePane.getChildren().addAll(singleTaskDesciptionLabel, singleTaskInputLabel, singleTaskSolveMessage, singleTaskResultPane);
         VBox.setMargin(singleTaskDesciptionLabel, new Insets(0, 20, 0, 20));
+        VBox.setMargin(singleTaskInputLabel, new Insets(0, 20, 0, 20));
         VBox.setMargin(singleTaskSolveMessage, new Insets(0, 20, 0, 20));
         VBox.setMargin(singleTaskResultPane, new Insets(0, 20, 0, 20));
         
@@ -402,6 +405,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                     selectedTask = selectedTaskList.get(0);
                     singleTaskTitleLabel.setText(selectedTask.getTitle());
                     singleTaskDesciptionLabel.setText(selectedTask.getDescription());
+                    singleTaskInputLabel.setText("Input " + selectedTask.getInput());
                     mainPane.setCenter(singleTaskPane);
                 }
             }
