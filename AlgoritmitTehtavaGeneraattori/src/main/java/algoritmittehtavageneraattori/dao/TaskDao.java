@@ -9,4 +9,5 @@ public interface TaskDao {
     List<Task> getAll();
     void loadNewTasks();
     void addNewTasks();
+    void setDone(int id) throws Exception;
 }

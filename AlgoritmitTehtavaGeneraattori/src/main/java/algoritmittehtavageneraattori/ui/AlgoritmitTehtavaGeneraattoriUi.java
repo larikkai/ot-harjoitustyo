@@ -49,7 +49,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     private Scene newTaskScene;
     private Label menuLabel = new Label();
     private GridPane tasksGridPane;
-    private int taskToSolveId;
     private TableView tableView;
     private Task selectedTask;
     private ObservableList<Task> selectedTaskList;
@@ -296,7 +295,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         singleTaskSolveButton.setOnAction(event -> {
             if (algoritmitehtavageneraattoriService.compareResults(singleTaskUserInput.getText(), selectedTask)) {
-                selectedTask.setDone();
+                algoritmitehtavageneraattoriService.markSolved(selectedTask.getId());
                 singleTaskSolveMessage.setText("Correct answer");
                 singleTaskSolveMessage.setTextFill(Color.GREEN);
                 singleTaskUserInput.setText("");
@@ -346,7 +345,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
             if(newTaskFile != null) {
                 try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), COPY_ATTRIBUTES);
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
                     algoritmitehtavageneraattoriService.loadTasks();
                     redrawTasklist();
                 } catch (IOException e){
@@ -363,7 +362,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
             if(newTaskFile != null) {
                 try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), COPY_ATTRIBUTES);
                     algoritmitehtavageneraattoriService.addTasks();
                     redrawTasklist();
                 } catch (IOException e){

@@ -26,7 +26,7 @@ public class AlgoritmitehtavageneraattoriService {
         User user = new User(username, hashedPassword);
         try {
             userDao.create(user);
-        } catch (Exception e) {
+        } catch (Exception e1) {
             return false;
         }
 
@@ -64,7 +64,7 @@ public class AlgoritmitehtavageneraattoriService {
         Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, gategoryId, input);
         try {
             taskDao.create(task);
-        } catch (Exception ex) {
+        } catch (Exception e2) {
             return false;
         }
         return true;
@@ -83,6 +83,13 @@ public class AlgoritmitehtavageneraattoriService {
     
     public void addTasks() {
         taskDao.addNewTasks();
+    }
+    
+    public void markSolved(int id) {
+        try {
+           taskDao.setDone(id);
+        } catch (Exception e3){
+        }
     }
     
 }
