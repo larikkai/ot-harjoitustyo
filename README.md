@@ -36,7 +36,7 @@ Testien kattavuusraporttia voi tarkastella avaamalla tiedoston target/site/jacoc
 
 ### Checkstyle
 
-Checkstyle on käytössä ja määritykset löytyvät tiedostosta [checkstyle.xml](/checkstyle.xml) ja tarkistuksen voi suorittaa komennolla:
+Checkstyle on käytössä ja määritykset löytyvät tiedostosta [checkstyle.xml](/AlgoritmitTehtavaGeneraattori/checkstyle.xml) ja tarkistuksen voi suorittaa komennolla:
 ```
 mvn jxr:jxr checkstyle:checkstyle
 ```

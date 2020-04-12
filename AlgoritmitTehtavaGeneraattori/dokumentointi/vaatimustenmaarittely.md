@@ -25,6 +25,8 @@ Sovellukseseen toteutetaan aluksi yksi käyttäjärooli, normaalikäyttäjä roo
 
 
 ## Jatkokehitysideoita
-- käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
-- pääkäyttäjärooli, jonka avulla sovellukseen voidaan lisätä uusia tehtäviä käyttäjien ratkaistavaksi
-- FXML käyttöliittymä
+-	[ ] käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
+-	[ ] pääkäyttäjärooli, jonka avulla sovellukseen voidaan lisätä uusia tehtäviä käyttäjien ratkaistavaksi
+-	[x] käyttäjien yhteyteen salasana, joka vaaditaan kirjautumisen yhteydessä 
+-	[ ] käyttäjä voi ladata halutessaan tehtävä sarjan tiedostosta
+-	[ ] FXML käyttöliittymä
