@@ -12,4 +12,6 @@
 | 1.4   | 3    | käyttöliittymän suunnittelua ja korjausta |
 | 5.4   | 9    | tehtävä toiminnallisuuden lisääminen (näkymä, lisäys, ratkaisu) ja testit |
 | 6.4   | 3    | checkstyle korjaukset ja arkkitehtuuri.md ja muun dokumentaation päivittäminen |
-| yht   | 40   | | 
+| 12.4  | 5    | dokumentoinnin päivittämistä, lisää tehtaviin syote, lisää mahdollisuus lisätä tehtäviä tiedostosta ja yleistä siivoilua |
+| 15.4  | 6    | lisää testejä, päivitä dokumentointia ja viikon 5/6 toteutusta |
+| yht   | 51   | | 
