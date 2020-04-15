@@ -89,8 +89,8 @@ public class AlgoritmitehtavageneraattoriService {
     
     public void markSolved(int id) {
         try {
-           taskDao.setDone(id);
-        } catch (Exception e3){
+            taskDao.setDone(id);
+        } catch (Exception e3) {
         }
     }
     

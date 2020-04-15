@@ -78,8 +78,8 @@ public class FileTaskDao implements TaskDao {
     
     @Override
     public void setDone(int id) throws Exception {
-        for(Task t : tasks) {
-            if(t.getId() == id) {
+        for (Task t : tasks) {
+            if (t.getId() == id) {
                 t.setDone();
             }
         }
