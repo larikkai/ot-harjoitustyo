@@ -75,8 +75,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         Collections.sort(tasks);
         tasks.forEach((task) -> {
             tableView.getItems().add(task);
-        });
-    } 
+        }); 
+    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -276,7 +276,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         VBox singleTaskMiddlePane = new VBox(10);
         HBox singleTaskResultPane = new HBox(10);
         singleTaskSolveMessage = new Label();
-
+ 
         Label singleTaskTitleLabel = new Label();
         singleTaskTitleLabel.setStyle("-fx-font-size: 40px");
         Label singleTaskDesciptionLabel = new Label();

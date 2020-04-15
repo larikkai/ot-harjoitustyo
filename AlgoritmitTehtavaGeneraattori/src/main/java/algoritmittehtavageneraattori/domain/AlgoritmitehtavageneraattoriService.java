@@ -3,7 +3,6 @@ package algoritmittehtavageneraattori.domain;
 import algoritmittehtavageneraattori.dao.UserDao;
 import algoritmittehtavageneraattori.dao.TaskDao;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -60,6 +59,9 @@ public class AlgoritmitehtavageneraattoriService {
     }
     
     public boolean createTask(String title, String description, String result, int difficulty, int gategoryId, String input) {
+        if (loggedIn == null) {
+            return false;
+        }
         String hashedResult = BCrypt.hashpw(result, BCrypt.gensalt(11));
         Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, gategoryId, input);
         try {
