@@ -79,7 +79,9 @@ public class TaskTest {
     public void returnTrueWhenSameId() {
         Task t1 = new Task(null, null, null, 1,1,1, null);
         Task t2 = new Task(null, null, null, 1,1,1, null);
+        Task t3 = new Task(null, null, null, 1,2,1, null);
         assertTrue(t1.equals(t2));
+        assertFalse(t1.equals(t3));
     }
     
     @Test

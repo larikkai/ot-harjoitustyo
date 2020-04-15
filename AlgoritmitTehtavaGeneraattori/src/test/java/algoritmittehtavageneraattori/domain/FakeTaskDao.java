@@ -1,0 +1,45 @@
+package algoritmittehtavageneraattori.domain;
+
+import algoritmittehtavageneraattori.dao.TaskDao;
+import algoritmittehtavageneraattori.domain.Task;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FakeTaskDao implements TaskDao {
+    
+    List<Task> tasks = new ArrayList<>();
+
+    @Override
+    public Task create(Task task) {
+        tasks.add(task);
+        return task;
+    }
+
+    @Override
+    public List<Task> getAll() {
+        return tasks;
+    }
+
+    @Override
+    public void loadNewTasks() {
+        List<Task> newTasks = new ArrayList<>();
+        newTasks.add(new Task(null, null, null, 1,1,1, null));
+        newTasks.add(new Task(null, null, null, 1,2,1, null));
+        newTasks.add(new Task(null, null, null, 1,3,1, null));
+        tasks = newTasks;
+    }
+
+    @Override
+    public void addNewTasks() {
+        tasks.add(new Task(null, null, null, 1,1,1, null));
+    }
+
+    @Override
+    public void setDone(int id) {
+        for(Task task : tasks) {
+            if(task.getId() == id) {
+                task.setDone();
+            }
+        }
+    }
+}
