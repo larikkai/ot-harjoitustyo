@@ -14,9 +14,9 @@ public class UserTest {
     
     @Before
     public void setUp(){
-        user = new User("user", password);
-        user2 = new User("user", password);
-        user3 = new User("notUser", password);
+        user = new User("user", password, 0);
+        user2 = new User("user", password, 0);
+        user3 = new User("notUser", password, 0);
     }
     
     @Test
@@ -49,5 +49,16 @@ public class UserTest {
     public void nonEqualObjectReturnFalse () {
         Object o = new Object();
         assertFalse(user.equals(o));
+    }
+    
+    @Test
+    public void newUserHasZeroPoints(){
+        assertEquals(0, user.getPoints());
+    }
+    
+    @Test
+    public void pointsCanIncrease(){
+        user.setPoints(1);
+        assertEquals(1, user.getPoints());
     }
 }

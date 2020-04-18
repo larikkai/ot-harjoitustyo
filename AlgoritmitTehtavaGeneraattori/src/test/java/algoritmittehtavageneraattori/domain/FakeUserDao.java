@@ -12,7 +12,7 @@ public class FakeUserDao implements UserDao {
     public FakeUserDao() {
         users = new ArrayList<>();
         String hashedPassword = BCrypt.hashpw("test", BCrypt.gensalt(11));
-    users.add(new User("student", hashedPassword));
+        users.add(new User("student", hashedPassword, 0));
     }
 
     @Override

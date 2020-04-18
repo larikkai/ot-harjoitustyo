@@ -47,12 +47,13 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     private Scene mainScene;
     private Scene taskScene;
     private Scene newTaskScene;
-    private Label menuLabel = new Label();
+    private Label menuLabel;
+    private Label menuUserLabel;
+    private Label singleTaskSolveMessage;
     private GridPane tasksGridPane;
     private TableView tableView;
     private Task selectedTask;
     private ObservableList<Task> selectedTaskList;
-    private Label singleTaskSolveMessage;
     private AlgoritmitehtavageneraattoriService algoritmitehtavageneraattoriService;
     
     @Override
@@ -78,6 +79,11 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         }); 
     }
     
+    public void updateUserLabel() {
+        menuUserLabel.setText(algoritmitehtavageneraattoriService.getLoggedUser().getUsername() + " : "
+                        + algoritmitehtavageneraattoriService.getLoggedUser().getPoints() + " points");
+    }
+    
     @Override
     public void start(Stage primaryStage) {
         
@@ -88,7 +94,9 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         PasswordField passwordInput = new PasswordField();
         Button loginButton = new Button("login");
         Button createButton = new Button("create new user");
+        menuLabel = new Label();
         Label loginMessage = new Label();
+        menuUserLabel = new Label();
         
         loginButton.setOnAction(event -> {
             String username = usernameInput.getText();
@@ -96,6 +104,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             if (algoritmitehtavageneraattoriService.login(username, password)) {
                 loginMessage.setText("");
                 menuLabel.setText("Welcome " + username);
+                updateUserLabel();
                 primaryStage.setScene(mainScene);
                 usernameInput.setText("");
                 passwordInput.setText("");
@@ -296,6 +305,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                 singleTaskSolveMessage.setText("Correct answer");
                 singleTaskSolveMessage.setTextFill(Color.GREEN);
                 singleTaskUserInput.setText("");
+                updateUserLabel();
                 redrawTasklist();
             } else {
                 singleTaskSolveMessage.setText("Wrong answer");
@@ -419,7 +429,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             singleTaskSolveMessage.setText("");
         });
         
-        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, logoutButton);
+        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, logoutButton, menuUserLabel);
         menuPane.setAlignment(Pos.TOP_LEFT);
         
         mainPane.setTop(menuPane);

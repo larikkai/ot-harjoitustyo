@@ -22,7 +22,8 @@ public class FileUserDao implements UserDao {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
                 String[] parts = reader.nextLine().split(";");
-                User u = new User(parts[0], parts[1]);
+                int points = Integer.valueOf(parts[2]);
+                User u = new User(parts[0], parts[1], points);
                 users.add(u);
             }
         } catch (Exception e) {
@@ -34,7 +35,7 @@ public class FileUserDao implements UserDao {
         try {
             FileWriter writer = new FileWriter(new File(file));
             for (User user : users) {
-                writer.write(user.getUsername() + ";" + user.getPassword() + "\n");
+                writer.write(user.getUsername() + ";" + user.getPassword() + ";" + user.getPoints() + "\n");
             }
             writer.close();
         } catch (Exception e) {

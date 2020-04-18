@@ -22,7 +22,7 @@ public class AlgoritmitehtavageneraattoriService {
             return false;
         }
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(11));
-        User user = new User(username, hashedPassword);
+        User user = new User(username, hashedPassword, 0);
         try {
             userDao.create(user);
         } catch (Exception e1) {
@@ -55,6 +55,7 @@ public class AlgoritmitehtavageneraattoriService {
         if (!BCrypt.checkpw(userInputResult, task.getResult())) {
             return false;
         }
+        loggedIn.setPoints(task.getDifficulty());
         return true;
     }
     

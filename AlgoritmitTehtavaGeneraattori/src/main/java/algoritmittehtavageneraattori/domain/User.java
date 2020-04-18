@@ -5,10 +5,12 @@ public class User {
     
     private final String username;
     private final String password;
+    private int points;
     
-    public User(String username, String password) {
+    public User(String username, String password, int points) {
         this.username = username;
         this.password = password;
+        this.points = points;
     }
     
     public String getUsername() {
@@ -17,6 +19,14 @@ public class User {
     
     public String getPassword() {
         return this.password;
+    }
+    
+    public int getPoints(){
+        return this.points;
+    }
+    
+    public void setPoints(int value){
+        this.points += value;
     }
     
     @Override
