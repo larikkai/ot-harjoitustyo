@@ -66,7 +66,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         String taskFile = properties.getProperty("taskFile");
 
         FileUserDao userDao = new FileUserDao(userFile);
-        FileTaskDao taskDao = new FileTaskDao(taskFile);
+        FileTaskDao taskDao = new FileTaskDao(taskFile, userDao);
         algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao, taskDao);
     }
     
@@ -258,14 +258,16 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             description = description.replaceAll("\\t", " ");
             description = description.replaceAll("\\n", " ");
             String result = newTaskResultInput.getText();
-            int difficulty = Integer.valueOf(newTaskDifficultyInput.getText());
-            int gategoryId = Integer.valueOf(newTaskGategoryIdInput.getText());
+            String difficulty = newTaskDifficultyInput.getText();
+            String gategoryId = newTaskGategoryIdInput.getText();
             String input = newTaskInputInput.getText().trim();
-            if (title.length() < 5 || description.length() < 10) {
-                newTaskMessage.setText("invalid title or description");
+            if (title.length() < 5 || description.length() < 10 || input.isBlank() || result.isBlank() || difficulty.isBlank() || gategoryId.isBlank()) {
+                newTaskMessage.setText("invalid input, blank lines are not allowed. Fill each section");
                 newTaskMessage.setTextFill(Color.RED);
             } else {
-                algoritmitehtavageneraattoriService.createTask(title, description, result, difficulty, gategoryId, input);
+                int difficultyInt = Integer.valueOf(difficulty);
+                int gategoryIdInt = Integer.valueOf(gategoryId);
+                algoritmitehtavageneraattoriService.createTask(title, description, result, difficultyInt, gategoryIdInt, input);
                 newTaskMessage.setText("new task created");
                 newTaskMessage.setTextFill(Color.GREEN);
                 newTaskTitleInput.setText("");

@@ -21,11 +21,11 @@ public class User {
         return this.password;
     }
     
-    public int getPoints(){
+    public int getPoints() {
         return this.points;
     }
     
-    public void setPoints(int value){
+    public void setPoints(int value) {
         this.points += value;
     }
     

@@ -13,10 +13,10 @@ public class TaskTest {
     
     @Before
     public void setUp() {
-        task = new Task("Lukujen keskiarvo", "Toteuta algoritmi joka ratkaisee lukujen 2,2,2 summan keskiarvon", "2", 1, 1, 1, "222");
-        task2 = new Task("Lukujen keskiarvo", "Toteuta algoritmi joka ratkaisee lukujen 2,2,2 summan keskiarvon", "2", 1, 1, 1, "222");
-        task3 = new Task("testTitle", "testDescription", "2", 1, 1, 3, "222");
-        task4 = new Task("testTitle", "testDescription", "2", 2, 1, 3, "222");
+        task = new Task("Lukujen keskiarvo", "Toteuta algoritmi joka ratkaisee lukujen 2,2,2 summan keskiarvon", "2", 1, 1, 1, "222", null);
+        task2 = new Task("Lukujen keskiarvo", "Toteuta algoritmi joka ratkaisee lukujen 2,2,2 summan keskiarvon", "2", 1, 1, 1, "222", null);
+        task3 = new Task("testTitle", "testDescription", "2", 1, 1, 3, "222", null);
+        task4 = new Task("testTitle", "testDescription", "2", 2, 1, 3, "222", null);
     }
     
     @Test
@@ -77,9 +77,9 @@ public class TaskTest {
     
     @Test
     public void returnTrueWhenSameId() {
-        Task t1 = new Task(null, null, null, 1,1,1, null);
-        Task t2 = new Task(null, null, null, 1,1,1, null);
-        Task t3 = new Task(null, null, null, 1,2,1, null);
+        Task t1 = new Task(null, null, null, 1,1,1, null, null);
+        Task t2 = new Task(null, null, null, 1,1,1, null, null);
+        Task t3 = new Task(null, null, null, 1,2,1, null, null);
         assertTrue(t1.equals(t2));
         assertFalse(t1.equals(t3));
     }
@@ -92,5 +92,11 @@ public class TaskTest {
     @Test
     public void ObjectWithDifferentGategoryCompare(){
         assertTrue(task3.compareTo(task4) == -1);
+    }
+    
+    @Test public void taskHasUser() {
+        User user = new User("student", "test", 0);
+        Task task = new Task(null, null, null, 1,2,1, null, user);
+        assertTrue(task.getUser().equals(user));
     }
 }

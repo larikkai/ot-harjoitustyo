@@ -3,6 +3,7 @@ package algoritmittehtavageneraattori.dao;
 import java.util.List;
 import java.util.ArrayList;
 import algoritmittehtavageneraattori.domain.Task;
+import algoritmittehtavageneraattori.domain.User;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,10 +12,12 @@ public class FileTaskDao implements TaskDao {
     
     private List<Task> tasks;
     private String file;
+    private UserDao users;
     
-    public FileTaskDao(String file) {
+    public FileTaskDao(String file, UserDao users) {
         tasks = new ArrayList<>();
         this.file = file;
+        this.users = users;
         load();
     }
     
@@ -27,7 +30,8 @@ public class FileTaskDao implements TaskDao {
                 int gategoryId = Integer.valueOf(parts[6]);
                 int id = tasks.size() + 1;
                 String input = parts[7];
-                Task t = new Task(parts[0], parts[1], parts[2], difficulty, id, gategoryId, input);
+                User taskUser = users.getAll().stream().filter(user -> user.getUsername().equals(parts[8])).findFirst().orElse(null);
+                Task t = new Task(parts[0], parts[1], parts[2], difficulty, id, gategoryId, input, taskUser);
                 if (Boolean.valueOf(parts[5])) {
                     t.setDone();
                 }
@@ -44,7 +48,7 @@ public class FileTaskDao implements TaskDao {
             for (Task task : tasks) {
                 writer.write(task.getTitle() + ";" + task.getDescription() + ";" + task.getResult() + ";"
                         + task.getDifficulty() + ";" + task.getId() + ";" + task.getDone() + ";" + task.getGategoryId()
-                        + ";" + task.getInput() + "\n");
+                        + ";" + task.getInput() + ";" + task.getUser().getUsername() + "\n");
             }
             writer.close();
         } catch (Exception e) {

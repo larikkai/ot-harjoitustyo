@@ -10,8 +10,9 @@ public class Task implements Comparable<Task> {
     private boolean done;
     private int gategoryId;
     private final String input;
+    private User user;
     
-    public Task(String title, String description, String result, int difficulty, int id, int gategoryId, String input) {
+    public Task(String title, String description, String result, int difficulty, int id, int gategoryId, String input, User user) {
         this.title = title;
         this.description = description;
         this.result = result;
@@ -20,6 +21,7 @@ public class Task implements Comparable<Task> {
         this.done = false;
         this.gategoryId = gategoryId;
         this.input = input;
+        this.user = user;
     }
     
     public String getTitle() {
@@ -60,6 +62,10 @@ public class Task implements Comparable<Task> {
     
     public String getInput() {
         return this.input;
+    }
+    
+    public User getUser() {
+        return this.user;
     }
     
     @Override

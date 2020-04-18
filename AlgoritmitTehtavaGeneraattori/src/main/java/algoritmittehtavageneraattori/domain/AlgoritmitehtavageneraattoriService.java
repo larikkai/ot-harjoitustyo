@@ -64,7 +64,7 @@ public class AlgoritmitehtavageneraattoriService {
             return false;
         }
         String hashedResult = BCrypt.hashpw(result, BCrypt.gensalt(11));
-        Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, gategoryId, input);
+        Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, gategoryId, input, loggedIn);
         try {
             taskDao.create(task);
         } catch (Exception e2) {
@@ -77,7 +77,13 @@ public class AlgoritmitehtavageneraattoriService {
         if (loggedIn == null) {
             return new ArrayList<>();
         }
-        return taskDao.getAll();
+        ArrayList<Task> loggedInTasks = new ArrayList<>();
+        for (Task task : taskDao.getAll()) {
+            if (task.getUser().equals(loggedIn)) {
+                loggedInTasks.add(task);
+            }
+        }
+        return loggedInTasks;
     }
     
     public void loadTasks() {
