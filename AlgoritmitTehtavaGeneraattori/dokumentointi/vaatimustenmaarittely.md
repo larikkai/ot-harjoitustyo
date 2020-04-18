@@ -7,7 +7,7 @@ joilla jokaisella on oma yksilöllinen etenemistaso.
 
 ## Käyttäjät
 
-Sovellukseseen toteutetaan aluksi yksi käyttäjärooli, normaalikäyttäjä roolin käyttäjä voi ratkaista tehtäviä ja/tai luoda uusia tehtäviä.
+Kirjautunut käyttäjä voi ratkaista tehtäviä ja luoda tai tuoda uusia tehtäviä.
 
 ## Toiminnallisuus
 
@@ -22,11 +22,12 @@ Sovellukseseen toteutetaan aluksi yksi käyttäjärooli, normaalikäyttäjä roo
 - käyttäjä voi ratkaista tehtäviä
 - käyttäjä voi kirjautua ulos
 - käyttäjä voi luoda uuden tehtävän
+- käyttäjä voi tuoda tehtäviä tiedostosta
 
 
 ## Jatkokehitysideoita
 -	[ ] käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
--	[ ] pääkäyttäjärooli, jonka avulla sovellukseen voidaan lisätä uusia tehtäviä käyttäjien ratkaistavaksi
 -	[x] käyttäjien yhteyteen salasana, joka vaaditaan kirjautumisen yhteydessä 
--	[ ] käyttäjä voi ladata halutessaan tehtävä sarjan tiedostosta
+-	[x] käyttäjä voi ladata halutessaan tehtäviä tiedostosta
 -	[ ] FXML käyttöliittymä
+-	[ ] Käyttäjä kohtainen eteneminen ja pisteet
