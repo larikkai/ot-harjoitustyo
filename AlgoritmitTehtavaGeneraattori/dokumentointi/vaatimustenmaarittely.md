@@ -28,6 +28,5 @@ Kirjautunut käyttäjä voi ratkaista tehtäviä ja luoda tai tuoda uusia tehtä
 ## Jatkokehitysideoita
 -	[ ] käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
 -	[x] käyttäjien yhteyteen salasana, joka vaaditaan kirjautumisen yhteydessä 
--	[x] käyttäjä voi ladata halutessaan tehtäviä tiedostosta
--	[ ] FXML käyttöliittymä
--	[ ] Käyttäjä kohtainen eteneminen ja pisteet
+-	[tehty] käyttäjä voi ladata halutessaan tehtäviä tiedostosta
+-	[tehty] Käyttäjä kohtainen eteneminen ja pisteet

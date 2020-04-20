@@ -14,4 +14,7 @@
 | 6.4   | 3    | checkstyle korjaukset ja arkkitehtuuri.md ja muun dokumentaation päivittäminen |
 | 12.4  | 5    | dokumentoinnin päivittämistä, lisää tehtaviin syote, lisää mahdollisuus lisätä tehtäviä tiedostosta ja yleistä siivoilua |
 | 15.4  | 6    | lisää testejä, päivitä dokumentointia ja viikon 5/6 toteutusta |
-| yht   | 51   | | 
+| 18.4  | 3    | lisää toiminnallisuus ja näkymä käyttäjän pisteille, testien korjaukset, käyttäjä kohtaiset tehtävät |
+| 19.4  | 3    | release ja dokumentaation lisäystä |
+| 20.4  | 6    | koodin parantelua ja release |
+| yht   | 63   | | 
