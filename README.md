@@ -14,7 +14,7 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla teht�
 [Arkkitehtuurikuvaus](/AlgoritmitTehtavaGeneraattori/dokumentointi/arkkitehtuuri.md)
 
 ## Releaset
-[Viikko 5](/releases/tag/viikko5)
+[Viikko 5](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Komentorivitoiminnot
 
