@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Collections;
 import java.util.List;
@@ -45,12 +44,12 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     private Scene newUserScene;
     private Scene loginScene;
     private Scene mainScene;
-    private Scene taskScene;
-    private Scene newTaskScene;
     private Label menuLabel;
-    private Label menuUserLabel;
+    private Label menuUserLabel = new Label();
     private Label singleTaskSolveMessage;
-    private GridPane tasksGridPane;
+    private Label singleTaskTitleLabel;
+    private Label singleTaskDesciptionLabel;
+    private Label singleTaskInputLabel;
     private TableView tableView;
     private Task selectedTask;
     private ObservableList<Task> selectedTaskList;
@@ -70,24 +69,18 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao, taskDao);
     }
     
-    public void redrawTasklist() {
-        tableView.getItems().clear();
-        List<Task> tasks = algoritmitehtavageneraattoriService.getTasks();
-        Collections.sort(tasks);
-        tasks.forEach((task) -> {
-            tableView.getItems().add(task);
-        }); 
-    }
-    
-    public void updateUserLabel() {
-        menuUserLabel.setText(algoritmitehtavageneraattoriService.getLoggedUser().getUsername() + " : "
-                        + algoritmitehtavageneraattoriService.getLoggedUser().getPoints() + " points");
-    }
-    
     @Override
     public void start(Stage primaryStage) {
+        loginScene = createLoginScene(primaryStage);
+        newUserScene = createNewUserScene(primaryStage);
+        mainScene = createMainScene(primaryStage);
         
-        // login scnece
+        primaryStage.setTitle("AlgoritmitTehtavaGeneraattori");
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+    }
+    
+    private Scene createLoginScene(Stage primaryStage) {
         Label loginLabel = new Label("username:");
         Label passwordLabel = new Label("password:");
         TextField usernameInput = new TextField();
@@ -104,13 +97,14 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             if (algoritmitehtavageneraattoriService.login(username, password)) {
                 loginMessage.setText("");
                 menuLabel.setText("Welcome " + username);
+                menuLabel.setStyle("-fx-font-size: 20px");
                 updateUserLabel();
                 primaryStage.setScene(mainScene);
                 usernameInput.setText("");
                 passwordInput.setText("");
                 redrawTasklist();
             } else {
-                loginMessage.setText("invalid username");
+                loginMessage.setText("invalid username or password");
                 loginMessage.setTextFill(Color.RED);
             }
         });
@@ -144,9 +138,11 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
 
         loginPane.setCenter(inputLoginPane);
         
-        loginScene = new Scene(loginPane, 400, 200);
-        
-        //new createNewUserScene
+        Scene scene = new Scene(loginPane, 400, 200);
+        return scene;
+    }
+
+    private Scene createNewUserScene(Stage primaryStage) {
         Label newUsernameLabel = new Label("username:");
         Label newPasswordLabel = new Label("password:");
         TextField newUsernameInput = new TextField();
@@ -165,9 +161,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                 createNewUserMessage.setText("");
                 newUsernameInput.setText("");
                 newPasswordInput.setText("");
-                loginMessage.setText("new user created");
-                loginMessage.setTextFill(Color.GREEN);
-                primaryStage.setScene(loginScene);
+                createNewUserMessage.setText("new user created");
+                createNewUserMessage.setTextFill(Color.GREEN);
             } else {
                 createNewUserMessage.setText("username has to be unique");
                 createNewUserMessage.setTextFill(Color.RED);
@@ -177,6 +172,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         createNewUserLoginButton.setOnAction(event -> {
             newUsernameInput.setText("");
             createNewUserMessage.setText("");
+            newPasswordInput.setText("");
             primaryStage.setScene(loginScene);
         });
         
@@ -202,9 +198,106 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         newUserPane.setCenter(newUsernamePane);
         
-        newUserScene = new Scene(newUserPane, 400, 200);
+        Scene scene = new Scene(newUserPane, 400, 200);
+        return scene;
+    }
+    
+    private Scene createMainScene(Stage primaryStage) {
+        BorderPane mainPane = new BorderPane();
+        HBox menuPane = new HBox(10);
+        Button logoutButton = new Button("logout");
+        Button newTaskButton = new Button("new task");
+        Button mainButton = new Button("main");
+        menuLabel.setAlignment(Pos.CENTER);
         
-        // new task scene
+        BorderPane singleTaskPane = createSingleTaskPane();
+        
+        Menu file = new Menu("File");
+        Menu fileSubmenu = new Menu("Load");
+        MenuItem loadFileItem = new MenuItem("Load new task list");
+        loadFileItem.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Load tasks file");
+            configureFileChooser(fileChooser);
+            File newTaskFile = fileChooser.showOpenDialog(primaryStage);
+            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
+            if (newTaskFile != null) {
+                try {
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
+                    algoritmitehtavageneraattoriService.loadTasks();
+                    redrawTasklist();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        MenuItem addFileItem = new MenuItem("Load new tasks to list");
+        addFileItem.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Load tasks file");
+            configureFileChooser(fileChooser);
+            File newTaskFile = fileChooser.showOpenDialog(primaryStage);
+            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
+            if (newTaskFile != null) {
+                try {
+                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
+                    algoritmitehtavageneraattoriService.addTasks();
+                    redrawTasklist();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        fileSubmenu.getItems().addAll(loadFileItem, addFileItem);
+        file.getItems().add(fileSubmenu);
+        
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(file);
+        
+        tableView = makeTableView();
+        
+        TableViewSelectionModel selectionModel = tableView.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+        selectedTaskList = selectionModel.getSelectedItems();
+        selectedTaskList.addListener((ListChangeListener.Change<? extends Task> change) -> {
+            if (!selectedTaskList.isEmpty()) {
+                selectedTask = selectedTaskList.get(0);
+                singleTaskTitleLabel.setText(selectedTask.getTitle());
+                singleTaskDesciptionLabel.setText(selectedTask.getDescription());
+                singleTaskInputLabel.setText("Input " + selectedTask.getInput());
+                mainPane.setCenter(singleTaskPane);
+            }
+        });
+        
+        logoutButton.setOnAction(event -> {
+            algoritmitehtavageneraattoriService.logout();
+            primaryStage.setScene(loginScene);
+        });
+        
+        newTaskButton.setOnAction(event -> {
+            mainPane.setCenter(singleTaskPane);
+            singleTaskSolveMessage.setText("");
+        });
+        
+        mainButton.setOnAction(event -> {
+            selectionModel.clearSelection();
+            mainPane.setCenter(menuLabel);
+            singleTaskSolveMessage.setText("");
+        });
+        
+        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, logoutButton, menuUserLabel);
+        menuPane.setAlignment(Pos.TOP_LEFT);
+        
+        mainPane.setTop(menuPane);
+        mainPane.setCenter(menuLabel);
+        mainPane.setLeft(tableView);
+        
+        Scene scene = new Scene(mainPane, 1200, 800);
+        return scene;
+    }
+    
+    private VBox createNewTaskPane() {
         GridPane newTaskInputPane = new GridPane();
         newTaskInputPane.setAlignment(Pos.CENTER);
         Label newTaskMessage = new Label();
@@ -262,7 +355,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             String gategoryId = newTaskGategoryIdInput.getText();
             String input = newTaskInputInput.getText().trim();
             if (title.length() < 5 || description.length() < 10 || input.isBlank() || result.isBlank() || difficulty.isBlank() || gategoryId.isBlank()) {
-                newTaskMessage.setText("invalid input, blank lines are not allowed. Fill each section");
+                newTaskMessage.setText("Invalid input.");
                 newTaskMessage.setTextFill(Color.RED);
             } else {
                 int difficultyInt = Integer.valueOf(difficulty);
@@ -280,18 +373,19 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             }
         });
         
-        newTaskScene = new Scene(newTaskPane, 1200, 800);
-        
-        // single task scene
+        return newTaskPane;
+    }
+    
+    private BorderPane createSingleTaskPane() {
         BorderPane singleTaskPane = new BorderPane();
         VBox singleTaskMiddlePane = new VBox(10);
         HBox singleTaskResultPane = new HBox(10);
         singleTaskSolveMessage = new Label();
  
-        Label singleTaskTitleLabel = new Label();
+        singleTaskTitleLabel = new Label();
         singleTaskTitleLabel.setStyle("-fx-font-size: 40px");
-        Label singleTaskDesciptionLabel = new Label();
-        Label singleTaskInputLabel = new Label();
+        singleTaskDesciptionLabel = new Label();
+        singleTaskInputLabel = new Label();
         singleTaskDesciptionLabel.setMaxWidth(700);
         singleTaskDesciptionLabel.setWrapText(true);
         singleTaskDesciptionLabel.setStyle("-fx-font-size: 20px");
@@ -328,60 +422,17 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         singleTaskPane.setCenter(singleTaskMiddlePane);
         BorderPane.setAlignment(singleTaskTitleLabel, Pos.TOP_CENTER);
         
-        // main scene
-        BorderPane mainPane = new BorderPane();
-        HBox menuPane = new HBox(10);
-        Button logoutButton = new Button("logout");
-        Button newTaskButton = new Button("new task");
-        Button mainButton = new Button("main");
-        tasksGridPane = new GridPane();
-        tasksGridPane.setAlignment(Pos.CENTER);
-        menuLabel.setAlignment(Pos.CENTER);
-        
-        Menu file = new Menu("File");
-        Menu fileSubmenu = new Menu("Load");
-        MenuItem loadFileItem = new MenuItem("Load new task list");
-        loadFileItem.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Load tasks file");
-            configureFileChooser(fileChooser);
-            File newTaskFile = fileChooser.showOpenDialog(primaryStage);
-            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
-            if(newTaskFile != null) {
-                try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
-                    algoritmitehtavageneraattoriService.loadTasks();
-                    redrawTasklist();
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        MenuItem addFileItem = new MenuItem("Load new tasks to list");
-        addFileItem.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Load tasks file");
-            configureFileChooser(fileChooser);
-            File newTaskFile = fileChooser.showOpenDialog(primaryStage);
-            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
-            if(newTaskFile != null) {
-                try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), COPY_ATTRIBUTES);
-                    algoritmitehtavageneraattoriService.addTasks();
-                    redrawTasklist();
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        
-        fileSubmenu.getItems().addAll(loadFileItem, addFileItem);
-        file.getItems().add(fileSubmenu);
-        
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().add(file);
-        
-        tableView = new TableView();
+        return singleTaskPane;
+    }
+
+    private static void configureFileChooser(final FileChooser fileChooser) {      
+        fileChooser.setTitle("Load task file");       
+        fileChooser.setInitialFileName("tasks.txt");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+    }
+    
+    private static TableView makeTableView() {
+        TableView table = new TableView();
         TableColumn<String, Task> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumn<String, Task> titleColumn = new TableColumn<>("Title");
@@ -392,65 +443,28 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         TableColumn<String, Task> doneColumn = new TableColumn<>("Done");
         doneColumn.setCellValueFactory(new PropertyValueFactory<>("done"));
-        tableView.getColumns().add(idColumn);
-        tableView.getColumns().add(titleColumn);
-        tableView.getColumns().add(gategoryColumn);
-        tableView.getColumns().add(difficultyColumn);
-        tableView.getColumns().add(doneColumn);
+        table.getColumns().add(idColumn);
+        table.getColumns().add(titleColumn);
+        table.getColumns().add(gategoryColumn);
+        table.getColumns().add(difficultyColumn);
+        table.getColumns().add(doneColumn);
         
-        TableViewSelectionModel selectionModel = tableView.getSelectionModel();
-        selectionModel.setSelectionMode(SelectionMode.SINGLE);
-        selectedTaskList = selectionModel.getSelectedItems();
-        selectedTaskList.addListener(new ListChangeListener<Task>() {
-            @Override
-            public void onChanged(Change<? extends Task> change) {
-                if (!selectedTaskList.isEmpty()) { 
-                    selectedTask = selectedTaskList.get(0);
-                    singleTaskTitleLabel.setText(selectedTask.getTitle());
-                    singleTaskDesciptionLabel.setText(selectedTask.getDescription());
-                    singleTaskInputLabel.setText("Input " + selectedTask.getInput());
-                    mainPane.setCenter(singleTaskPane);
-                }
-            }
-        });
-        
-        logoutButton.setOnAction(event -> {
-            algoritmitehtavageneraattoriService.logout();
-            primaryStage.setScene(loginScene);
-        });
-        
-        newTaskButton.setOnAction(event -> {
-            mainPane.setCenter(newTaskPane);
-            singleTaskSolveMessage.setText("");
-        });
-        
-        mainButton.setOnAction(event -> {
-            selectionModel.clearSelection();
-            mainPane.setCenter(menuLabel);
-            newTaskMessage.setText("");
-            singleTaskSolveMessage.setText("");
-        });
-        
-        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, logoutButton, menuUserLabel);
-        menuPane.setAlignment(Pos.TOP_LEFT);
-        
-        mainPane.setTop(menuPane);
-        mainPane.setCenter(menuLabel);
-        mainPane.setLeft(tableView);
-        
-        mainScene = new Scene(mainPane, 1200, 800);
-        
-        // setup primary stage
-        primaryStage.setTitle("AlgoritmitTehtavaGeneraattori");
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
+        return table;
     }
     
-    private static void configureFileChooser(
-        final FileChooser fileChooser) {      
-            fileChooser.setTitle("Load task file");                 
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
-        }
+    public void redrawTasklist() {
+        tableView.getItems().clear();
+        List<Task> tasks = algoritmitehtavageneraattoriService.getTasks();
+        Collections.sort(tasks);
+        tasks.forEach((task) -> {
+            tableView.getItems().add(task);
+        }); 
+    }
+    
+    public void updateUserLabel() {
+        menuUserLabel.setText(algoritmitehtavageneraattoriService.getLoggedUser().getUsername() + " : "
+                        + algoritmitehtavageneraattoriService.getLoggedUser().getPoints() + " points");
+    }
     
     @Override
     public void stop() {
