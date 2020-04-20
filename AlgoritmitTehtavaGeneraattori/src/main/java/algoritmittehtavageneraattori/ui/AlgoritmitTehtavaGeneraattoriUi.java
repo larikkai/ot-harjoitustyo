@@ -272,11 +272,12 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         
         logoutButton.setOnAction(event -> {
             algoritmitehtavageneraattoriService.logout();
+            mainPane.setCenter(menuLabel);
             primaryStage.setScene(loginScene);
         });
         
         newTaskButton.setOnAction(event -> {
-            mainPane.setCenter(singleTaskPane);
+            mainPane.setCenter(createNewTaskPane());
             singleTaskSolveMessage.setText("");
         });
         
