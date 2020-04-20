@@ -13,6 +13,9 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla teht�
 
 [Arkkitehtuurikuvaus](/AlgoritmitTehtavaGeneraattori/dokumentointi/arkkitehtuuri.md)
 
+## Releaset
+[Viikko 5](/AlgoritmitTehtavaGeneraattori/releases/tag/viikko5)
+
 ## Komentorivitoiminnot
 
 ### Koodin suorittaminen
@@ -43,7 +46,9 @@ mvn jxr:jxr checkstyle:checkstyle
 ```
 Checkstyle-raporttia voi tarkastella avaamalla tiedoston /target/site/checkstyle.html
 
-## Releaset
-[Viikko 5 - korjaa linkki](/AlgoritmitTehtavaGeneraattori/checkstyle.xml)
-
-
+### Suoritettavan jarin generointi
+Komennolla:
+```
+mvn package
+```
+generoidaan suoritettava AlgoritmitTehtavaGeneraattori-1.0-SNAPSHOT.jar tiedosto hakemistoon target
