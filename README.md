@@ -52,3 +52,8 @@ Komennolla:
 mvn package
 ```
 generoidaan suoritettava AlgoritmitTehtavaGeneraattori-1.0-SNAPSHOT.jar tiedosto hakemistoon target
+
+Jar suoritetaan komennolla:
+```
+java -jar tiedoston_nimi.jar
+```

@@ -17,4 +17,6 @@
 | 18.4  | 3    | lisää toiminnallisuus ja näkymä käyttäjän pisteille, testien korjaukset, käyttäjä kohtaiset tehtävät |
 | 19.4  | 3    | release ja dokumentaation lisäystä |
 | 20.4  | 6    | koodin parantelua ja release |
-| yht   | 63   | | 
+| 25.4  | 4    | koodikatselmointi |
+| 26.4  | 1    | paranna koodin laatua (tiedostosta luennan ja uuden tehtävän validointi) vrt. issue |
+| yht   | 68   | | 
