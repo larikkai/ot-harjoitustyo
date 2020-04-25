@@ -333,10 +333,10 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         newTaskInputPane.add(newTaskDifficultyLabel, 0, 4);
         newTaskInputPane.add(newTaskDifficultyInput, 1, 4);
         
-        Label newTaskGategoryIdLabel = new Label("Gategory:");
-        TextField newTaskGategoryIdInput = new TextField();
-        newTaskInputPane.add(newTaskGategoryIdLabel, 0, 5);
-        newTaskInputPane.add(newTaskGategoryIdInput, 1, 5);
+        Label newTaskCategoryIdLabel = new Label("Category:");
+        TextField newTaskCategoryIdInput = new TextField();
+        newTaskInputPane.add(newTaskCategoryIdLabel, 0, 5);
+        newTaskInputPane.add(newTaskCategoryIdInput, 1, 5);
         
         Button createNewTask = new Button("create");
         newTaskInputPane.add(createNewTask, 1, 6);
@@ -353,24 +353,29 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             description = description.replaceAll("\\n", " ");
             String result = newTaskResultInput.getText();
             String difficulty = newTaskDifficultyInput.getText();
-            String gategoryId = newTaskGategoryIdInput.getText();
+            String categoryId = newTaskCategoryIdInput.getText();
             String input = newTaskInputInput.getText().trim();
-            if (title.length() < 5 || description.length() < 10 || input.isBlank() || result.isBlank() || difficulty.isBlank() || gategoryId.isBlank()) {
+            if (title.length() < 5 || description.length() < 10 || input.isBlank() || result.isBlank() || difficulty.isBlank() || categoryId.isBlank()) {
                 newTaskMessage.setText("Invalid input.");
                 newTaskMessage.setTextFill(Color.RED);
             } else {
-                int difficultyInt = Integer.valueOf(difficulty);
-                int gategoryIdInt = Integer.valueOf(gategoryId);
-                algoritmitehtavageneraattoriService.createTask(title, description, result, difficultyInt, gategoryIdInt, input);
-                newTaskMessage.setText("new task created");
-                newTaskMessage.setTextFill(Color.GREEN);
-                newTaskTitleInput.setText("");
-                newTaskDescriptionInput.setText("");
-                newTaskInputInput.setText("");
-                newTaskResultInput.setText("");
-                newTaskDifficultyInput.setText("");
-                newTaskGategoryIdInput.setText("");
-                redrawTasklist();
+                try{
+                    int difficultyInt = Integer.valueOf(difficulty);
+                    int categoryIdInt = Integer.valueOf(categoryId);
+                    algoritmitehtavageneraattoriService.createTask(title, description, result, difficultyInt, categoryIdInt, input);
+                    newTaskMessage.setText("new task created");
+                    newTaskMessage.setTextFill(Color.GREEN);
+                    newTaskTitleInput.setText("");
+                    newTaskDescriptionInput.setText("");
+                    newTaskInputInput.setText("");
+                    newTaskResultInput.setText("");
+                    newTaskDifficultyInput.setText("");
+                    newTaskCategoryIdInput.setText("");
+                    redrawTasklist();
+                } catch(NumberFormatException e) {
+                    newTaskMessage.setText("Invalid input.");
+                    newTaskMessage.setTextFill(Color.RED);
+                }
             }
         });
         
@@ -438,15 +443,15 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumn<String, Task> titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        TableColumn<String, Task> gategoryColumn = new TableColumn<>("Gategory");
-        gategoryColumn.setCellValueFactory(new PropertyValueFactory<>("gategoryId"));
+        TableColumn<String, Task> categoryColumn = new TableColumn<>("Category");
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
         TableColumn<String, Task> difficultyColumn = new TableColumn<>("Difficulty");
         difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         TableColumn<String, Task> doneColumn = new TableColumn<>("Done");
         doneColumn.setCellValueFactory(new PropertyValueFactory<>("done"));
         table.getColumns().add(idColumn);
         table.getColumns().add(titleColumn);
-        table.getColumns().add(gategoryColumn);
+        table.getColumns().add(categoryColumn);
         table.getColumns().add(difficultyColumn);
         table.getColumns().add(doneColumn);
         

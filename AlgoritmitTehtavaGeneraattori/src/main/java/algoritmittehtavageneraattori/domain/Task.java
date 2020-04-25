@@ -8,18 +8,18 @@ public class Task implements Comparable<Task> {
     private int difficulty;
     private final int id;
     private boolean done;
-    private int gategoryId;
+    private int categoryId;
     private final String input;
     private User user;
     
-    public Task(String title, String description, String result, int difficulty, int id, int gategoryId, String input, User user) {
+    public Task(String title, String description, String result, int difficulty, int id, int categoryId, String input, User user) {
         this.title = title;
         this.description = description;
         this.result = result;
         this.difficulty = difficulty;
         this.id = id;
         this.done = false;
-        this.gategoryId = gategoryId;
+        this.categoryId = categoryId;
         this.input = input;
         this.user = user;
     }
@@ -56,8 +56,8 @@ public class Task implements Comparable<Task> {
         this.done = true;
     }
     
-    public int getGategoryId() {
-        return this.gategoryId;
+    public int getCategoryId() {
+        return this.categoryId;
     }
     
     public String getInput() {
@@ -79,10 +79,10 @@ public class Task implements Comparable<Task> {
 
     @Override
     public int compareTo(Task other) {
-        if (this.gategoryId - other.gategoryId == 0) {
+        if (this.categoryId - other.categoryId == 0) {
             return this.difficulty - other.difficulty;
         }
-        return this.gategoryId - other.gategoryId;
+        return this.categoryId - other.categoryId;
     }
     
 }

@@ -59,12 +59,12 @@ public class AlgoritmitehtavageneraattoriService {
         return true;
     }
     
-    public boolean createTask(String title, String description, String result, int difficulty, int gategoryId, String input) {
+    public boolean createTask(String title, String description, String result, int difficulty, int categoryId, String input) {
         if (loggedIn == null) {
             return false;
         }
         String hashedResult = BCrypt.hashpw(result, BCrypt.gensalt(11));
-        Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, gategoryId, input, loggedIn);
+        Task task = new Task(title, description, hashedResult, difficulty, taskDao.getAll().size() + 1, categoryId, input, loggedIn);
         try {
             taskDao.create(task);
         } catch (Exception e2) {

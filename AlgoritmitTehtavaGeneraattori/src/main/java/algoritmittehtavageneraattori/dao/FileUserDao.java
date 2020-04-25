@@ -21,10 +21,13 @@ public class FileUserDao implements UserDao {
         try {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
-                String[] parts = reader.nextLine().split(";");
-                int points = Integer.valueOf(parts[2]);
-                User u = new User(parts[0], parts[1], points);
-                users.add(u);
+                String line = reader.nextLine();
+                if(!line.trim().isEmpty()) {
+                    String[] parts = line.split(";");
+                    int points = Integer.valueOf(parts[2]);
+                    User u = new User(parts[0], parts[1], points);
+                    users.add(u);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

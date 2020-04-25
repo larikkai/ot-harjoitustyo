@@ -55,8 +55,8 @@ public class TaskTest {
     }
     
     @Test
-    public void taskHasCorrectGategoryId(){
-        assertTrue(task.getGategoryId() == 1);
+    public void taskHasCorrectCategoryId(){
+        assertTrue(task.getCategoryId() == 1);
     }
     
     @Test
@@ -85,12 +85,12 @@ public class TaskTest {
     }
     
     @Test
-    public void ObjectWithSameGategoryCompareDifficulty(){
+    public void ObjectWithSameCategoryCompareDifficulty(){
         assertTrue(task.compareTo(task3) == -2);
     }
     
     @Test
-    public void ObjectWithDifferentGategoryCompare(){
+    public void ObjectWithDifferentCategoryCompare(){
         assertTrue(task3.compareTo(task4) == -1);
     }
     

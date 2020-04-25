@@ -25,17 +25,21 @@ public class FileTaskDao implements TaskDao {
         try {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
-                String[] parts = reader.nextLine().split(";");
-                int difficulty = Integer.valueOf(parts[3]);
-                int gategoryId = Integer.valueOf(parts[6]);
-                int id = tasks.size() + 1;
-                String input = parts[7];
-                User taskUser = users.getAll().stream().filter(user -> user.getUsername().equals(parts[8])).findFirst().orElse(null);
-                Task t = new Task(parts[0], parts[1], parts[2], difficulty, id, gategoryId, input, taskUser);
-                if (Boolean.valueOf(parts[5])) {
-                    t.setDone();
+                String line = reader.nextLine();
+                if(!line.trim().isEmpty()) {
+                    String[] parts = line.split(";");
+                    int difficulty = Integer.valueOf(parts[3]);
+                    int categoryId = Integer.valueOf(parts[6]);
+                    int id = tasks.size() + 1;
+                    String input = parts[7];
+                    User taskUser = users.findByUsername(parts[8]);
+                    //User taskUser = users.getAll().stream().filter(user -> user.getUsername().equals(parts[8])).findFirst().orElse(null);
+                    Task t = new Task(parts[0], parts[1], parts[2], difficulty, id, categoryId, input, taskUser);
+                    if (Boolean.valueOf(parts[5])) {
+                        t.setDone();
                 }
-                tasks.add(t);
+                    tasks.add(t);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,7 +51,7 @@ public class FileTaskDao implements TaskDao {
             FileWriter writer = new FileWriter(new File(file)); 
             for (Task task : tasks) {
                 writer.write(task.getTitle() + ";" + task.getDescription() + ";" + task.getResult() + ";"
-                        + task.getDifficulty() + ";" + task.getId() + ";" + task.getDone() + ";" + task.getGategoryId()
+                        + task.getDifficulty() + ";" + task.getId() + ";" + task.getDone() + ";" + task.getCategoryId()
                         + ";" + task.getInput() + ";" + task.getUser().getUsername() + "\n");
             }
             writer.close();
