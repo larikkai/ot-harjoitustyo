@@ -18,5 +18,6 @@
 | 19.4  | 3    | release ja dokumentaation lisäystä |
 | 20.4  | 6    | koodin parantelua ja release |
 | 25.4  | 4    | koodikatselmointi |
-| 26.4  | 1    | paranna koodin laatua (tiedostosta luennan ja uuden tehtävän validointi) vrt. issue |
-| yht   | 68   | | 
+| 26.4  | 6    | paranna koodin laatua kurssin vaatimusten mukaiseksi |
+| 26.4  | 2    | Tiedostosta luennan ja uuden tehtävän syotteiden validointi, tehtävien haku parametreilla |
+| yht   | 76   | | 

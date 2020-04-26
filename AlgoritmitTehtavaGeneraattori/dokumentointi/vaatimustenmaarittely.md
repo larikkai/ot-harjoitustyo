@@ -23,10 +23,8 @@ Kirjautunut käyttäjä voi ratkaista tehtäviä ja luoda tai tuoda uusia tehtä
 - käyttäjä voi kirjautua ulos
 - käyttäjä voi luoda uuden tehtävän
 - käyttäjä voi tuoda tehtäviä tiedostosta
-
+- käyttäjä kohtaiset pisteet
 
 ## Jatkokehitysideoita
 -	[ ] käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
--	[x] käyttäjien yhteyteen salasana, joka vaaditaan kirjautumisen yhteydessä 
--	[tehty] käyttäjä voi ladata halutessaan tehtäviä tiedostosta
--	[tehty] Käyttäjä kohtainen eteneminen ja pisteet
+-   [tehty_week6] tehtäviä voi hakea nimen, vaikeuden, kategorian tai onko ratkaistu perusteella
