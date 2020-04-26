@@ -21,11 +21,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import java.util.Collections;
-import java.util.List;
 import java.util.Properties;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -50,9 +51,10 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     private Label singleTaskTitleLabel;
     private Label singleTaskDesciptionLabel;
     private Label singleTaskInputLabel;
-    private TableView tableView;
+    private TableView<Task> tableView;
     private Task selectedTask;
     private ObservableList<Task> selectedTaskList;
+    private FilteredList<Task> filteredData;
     private AlgoritmitehtavageneraattoriService algoritmitehtavageneraattoriService;
     
     @Override
@@ -81,65 +83,93 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
     }
     
     private Scene createLoginScene(Stage primaryStage) {
+        Label loginMessage = new Label();
         Label loginLabel = new Label("username:");
         Label passwordLabel = new Label("password:");
         TextField usernameInput = new TextField();
         PasswordField passwordInput = new PasswordField();
-        Button loginButton = new Button("login");
-        Button createButton = new Button("create new user");
+        
+        Button loginButton = createLoginButton(usernameInput, passwordInput, loginMessage, primaryStage);
+        Button createButton = createNewUserButton(usernameInput, passwordInput, loginMessage, primaryStage);
+        
         menuLabel = new Label();
-        Label loginMessage = new Label();
         menuUserLabel = new Label();
         
-        loginButton.setOnAction(event -> {
+        BorderPane loginPane = new BorderPane();
+        
+        HBox usernameInputPane = createUsernameInputPane(loginLabel, usernameInput);
+        
+        HBox passwordInputPane = createPasswordInputPane(passwordLabel, passwordInput);
+        
+        HBox buttonsPane = createButtonsPane(loginButton, createButton);
+        
+        VBox inputLoginPane = createInputLoginPane(usernameInputPane, passwordInputPane, loginMessage, buttonsPane);
+        
+        loginPane.setCenter(inputLoginPane);
+        Scene scene = new Scene(loginPane, 400, 200);
+        return scene;
+    }
+    
+    private HBox createUsernameInputPane(Label loginLabel, TextField usernameInput) {
+        HBox usernamePane = new HBox(10);
+        usernamePane.getChildren().addAll(loginLabel, usernameInput);
+        usernamePane.setAlignment(Pos.CENTER);
+        return usernamePane;
+    }
+    
+    private HBox createPasswordInputPane(Label passwordLabel, TextField passwordInput) {
+        HBox passwordPane = new HBox(10);
+        passwordPane.getChildren().addAll(passwordLabel, passwordInput);
+        passwordPane.setAlignment(Pos.CENTER);
+        return passwordPane;
+    }
+    
+    private HBox createButtonsPane(Button loginButton, Button createButton) {
+        HBox buttonsPane = new HBox(10);
+        buttonsPane.getChildren().addAll(loginButton, createButton);
+        buttonsPane.setAlignment(Pos.CENTER); 
+        return buttonsPane;
+    }
+    
+    private VBox createInputLoginPane(HBox usernameInputPane, HBox passwordInputPane, Label loginMessage, HBox buttonsPane) {
+        VBox loginPane = new VBox(10);
+        VBox.setMargin(usernameInputPane, new Insets(0, 65, 0, 0));  
+        VBox.setMargin(passwordInputPane, new Insets(0, 65, 0, 0));      
+        loginPane.getChildren().addAll(loginMessage, usernameInputPane, passwordInputPane, buttonsPane);
+        loginPane.setAlignment(Pos.CENTER);
+        return loginPane;
+    }
+    
+    private Button createLoginButton(TextField usernameInput, TextField passwordInput, Label loginMessage, Stage primaryStage) {
+        Button button = new Button("login");
+        button.setOnAction(event -> {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
             if (algoritmitehtavageneraattoriService.login(username, password)) {
                 loginMessage.setText("");
                 menuLabel.setText("Welcome " + username);
                 menuLabel.setStyle("-fx-font-size: 20px");
-                updateUserLabel();
                 primaryStage.setScene(mainScene);
                 usernameInput.setText("");
                 passwordInput.setText("");
-                redrawTasklist();
+                update();
             } else {
                 loginMessage.setText("invalid username or password");
                 loginMessage.setTextFill(Color.RED);
             }
         });
-        
-        createButton.setOnAction(event -> {
+        return button;
+    }
+    
+    private Button createNewUserButton(TextField usernameInput, TextField passwordInput, Label loginMessage, Stage primaryStage) {
+        Button button = new Button("create new user");
+        button.setOnAction(event -> {
             usernameInput.setText("");
             passwordInput.setText("");
             loginMessage.setText("");
             primaryStage.setScene(newUserScene);
         });
-        
-        BorderPane loginPane = new BorderPane();
-        HBox usernameInputPane = new HBox(10);
-        HBox passwordInputPane = new HBox(10);
-        HBox buttonsPane = new HBox(10);
-        VBox inputLoginPane = new VBox(10);
-        
-        usernameInputPane.getChildren().addAll(loginLabel, usernameInput);
-        passwordInputPane.getChildren().addAll(passwordLabel, passwordInput);
-        
-        VBox.setMargin(usernameInputPane, new Insets(0, 65, 0, 0));
-        VBox.setMargin(passwordInputPane, new Insets(0, 65, 0, 0));
-        usernameInputPane.setAlignment(Pos.CENTER);
-        passwordInputPane.setAlignment(Pos.CENTER);
-        
-        buttonsPane.getChildren().addAll(loginButton, createButton);
-        buttonsPane.setAlignment(Pos.CENTER);
-        
-        inputLoginPane.getChildren().addAll(loginMessage, usernameInputPane, passwordInputPane, buttonsPane);
-        inputLoginPane.setAlignment(Pos.CENTER);
-
-        loginPane.setCenter(inputLoginPane);
-        
-        Scene scene = new Scene(loginPane, 400, 200);
-        return scene;
+        return button;
     }
 
     private Scene createNewUserScene(Stage primaryStage) {
@@ -227,7 +257,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                     algoritmitehtavageneraattoriService.loadTasks();
                     redrawTasklist();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -244,7 +273,6 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                     algoritmitehtavageneraattoriService.addTasks();
                     redrawTasklist();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -287,7 +315,9 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             singleTaskSolveMessage.setText("");
         });
         
-        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, logoutButton, menuUserLabel);
+        HBox searchBox = createSearchBox();
+        
+        menuPane.getChildren().addAll(menuBar, mainButton, newTaskButton, searchBox, logoutButton, menuUserLabel);
         menuPane.setAlignment(Pos.TOP_LEFT);
         
         mainPane.setTop(menuPane);
@@ -302,13 +332,11 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         GridPane newTaskInputPane = new GridPane();
         newTaskInputPane.setAlignment(Pos.CENTER);
         Label newTaskMessage = new Label();
-        
         Label newTaskTitleLabel = new Label("Title:");
         TextField newTaskTitleInput = new TextField();
         newTaskTitleInput.setStyle("-fx-font-size: 40px");
         newTaskInputPane.add(newTaskTitleLabel, 0, 0);
         newTaskInputPane.add(newTaskTitleInput, 1, 0);
-        
         Label newTaskDescriptionLabel = new Label("Description:");
         TextArea newTaskDescriptionInput = new TextArea();
         newTaskDescriptionInput.setWrapText(true);
@@ -317,35 +345,27 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         newTaskDescriptionInput.setPrefHeight(300);
         newTaskInputPane.add(newTaskDescriptionLabel, 0, 1);
         newTaskInputPane.add(newTaskDescriptionInput, 1, 1);
-        
         Label newTaskInputLabel = new Label("Input:");
         TextField newTaskInputInput = new TextField();
         newTaskInputPane.add(newTaskInputLabel, 0, 2);
         newTaskInputPane.add(newTaskInputInput, 1, 2);
-        
         Label newTaskResultLabel = new Label("Result:");
         TextField newTaskResultInput = new TextField();
         newTaskInputPane.add(newTaskResultLabel, 0, 3);
         newTaskInputPane.add(newTaskResultInput, 1, 3);
-        
         Label newTaskDifficultyLabel = new Label("Difficulty:");
         TextField newTaskDifficultyInput = new TextField();
         newTaskInputPane.add(newTaskDifficultyLabel, 0, 4);
         newTaskInputPane.add(newTaskDifficultyInput, 1, 4);
-        
         Label newTaskCategoryIdLabel = new Label("Category:");
         TextField newTaskCategoryIdInput = new TextField();
         newTaskInputPane.add(newTaskCategoryIdLabel, 0, 5);
         newTaskInputPane.add(newTaskCategoryIdInput, 1, 5);
-        
         Button createNewTask = new Button("create");
         newTaskInputPane.add(createNewTask, 1, 6);
-        
         VBox newTaskPane = new VBox(10);
         newTaskPane.setAlignment(Pos.CENTER);
-        
         newTaskPane.getChildren().addAll(newTaskMessage, newTaskInputPane);
-        
         createNewTask.setOnAction(event -> {
             String title = newTaskTitleInput.getText();
             String description = newTaskDescriptionInput.getText();
@@ -359,10 +379,8 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                 newTaskMessage.setText("Invalid input.");
                 newTaskMessage.setTextFill(Color.RED);
             } else {
-                try{
-                    int difficultyInt = Integer.valueOf(difficulty);
-                    int categoryIdInt = Integer.valueOf(categoryId);
-                    algoritmitehtavageneraattoriService.createTask(title, description, result, difficultyInt, categoryIdInt, input);
+                try {
+                    algoritmitehtavageneraattoriService.createTask(title, description, result, Integer.valueOf(difficulty), Integer.valueOf(categoryId), input);
                     newTaskMessage.setText("new task created");
                     newTaskMessage.setTextFill(Color.GREEN);
                     newTaskTitleInput.setText("");
@@ -372,63 +390,67 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
                     newTaskDifficultyInput.setText("");
                     newTaskCategoryIdInput.setText("");
                     redrawTasklist();
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     newTaskMessage.setText("Invalid input.");
                     newTaskMessage.setTextFill(Color.RED);
                 }
             }
-        });
-        
+        }); 
         return newTaskPane;
     }
     
     private BorderPane createSingleTaskPane() {
         BorderPane singleTaskPane = new BorderPane();
         VBox singleTaskMiddlePane = new VBox(10);
-        HBox singleTaskResultPane = new HBox(10);
+        HBox singleTaskResultPane = createSingleTaskResultPane();
         singleTaskSolveMessage = new Label();
- 
         singleTaskTitleLabel = new Label();
         singleTaskTitleLabel.setStyle("-fx-font-size: 40px");
-        singleTaskDesciptionLabel = new Label();
+        singleTaskDesciptionLabel = createSingleTaskDescriptionLabel();
         singleTaskInputLabel = new Label();
-        singleTaskDesciptionLabel.setMaxWidth(700);
-        singleTaskDesciptionLabel.setWrapText(true);
-        singleTaskDesciptionLabel.setStyle("-fx-font-size: 20px");
-        
-        TextField singleTaskUserInput = new TextField();
-        singleTaskUserInput.setMaxWidth(100);
-        
-        Button singleTaskSolveButton = new Button("Solve");
-        
-        singleTaskSolveButton.setOnAction(event -> {
-            if (algoritmitehtavageneraattoriService.compareResults(singleTaskUserInput.getText(), selectedTask)) {
-                algoritmitehtavageneraattoriService.markSolved(selectedTask.getId());
-                singleTaskSolveMessage.setText("Correct answer");
-                singleTaskSolveMessage.setTextFill(Color.GREEN);
-                singleTaskUserInput.setText("");
-                updateUserLabel();
-                redrawTasklist();
-            } else {
-                singleTaskSolveMessage.setText("Wrong answer");
-                singleTaskSolveMessage.setTextFill(Color.RED);
-                singleTaskUserInput.setText("");
-            }
-        });
-        
-        singleTaskResultPane.getChildren().addAll(singleTaskUserInput, singleTaskSolveButton);
-        
         singleTaskMiddlePane.getChildren().addAll(singleTaskDesciptionLabel, singleTaskInputLabel, singleTaskSolveMessage, singleTaskResultPane);
         VBox.setMargin(singleTaskDesciptionLabel, new Insets(0, 20, 0, 20));
         VBox.setMargin(singleTaskInputLabel, new Insets(0, 20, 0, 20));
         VBox.setMargin(singleTaskSolveMessage, new Insets(0, 20, 0, 20));
         VBox.setMargin(singleTaskResultPane, new Insets(0, 20, 0, 20));
-        
         singleTaskPane.setTop(singleTaskTitleLabel);
         singleTaskPane.setCenter(singleTaskMiddlePane);
         BorderPane.setAlignment(singleTaskTitleLabel, Pos.TOP_CENTER);
-        
         return singleTaskPane;
+    }
+    
+    private Label createSingleTaskDescriptionLabel() {
+        Label label = new Label();
+        label.setMaxWidth(700);
+        label.setWrapText(true);
+        label.setStyle("-fx-font-size: 20px");
+        return label;
+    }
+    
+    public HBox createSingleTaskResultPane() {
+        HBox pane = new HBox(10);
+        TextField singleTaskUserInput = new TextField();
+        singleTaskUserInput.setMaxWidth(100);
+        Button singleTaskSolveButton = new Button("Solve");
+        singleTaskSolveButton.setOnAction(event -> {
+            if (algoritmitehtavageneraattoriService.compareResults(singleTaskUserInput.getText(), selectedTask)) {
+                algoritmitehtavageneraattoriService.markSolved(selectedTask.getId());
+                singleTaskSolveMessage.setText("Correct answer");
+                singleTaskSolveMessage.setTextFill(Color.GREEN);
+                update();
+            } else {
+                singleTaskSolveMessage.setText("Wrong answer");
+                singleTaskSolveMessage.setTextFill(Color.RED);
+            }
+            singleTaskUserInput.setText("");
+        });
+        pane.getChildren().addAll(singleTaskUserInput, singleTaskSolveButton);
+        return pane;
+    }
+    
+    public void update() {
+        updateUserLabel();
+        redrawTasklist();
     }
 
     private static void configureFileChooser(final FileChooser fileChooser) {      
@@ -437,34 +459,97 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
     }
     
-    private static TableView makeTableView() {
-        TableView table = new TableView();
-        TableColumn<String, Task> idColumn = new TableColumn<>("ID");
+    private TableView makeTableView() {
+        TableView<Task> table = new TableView<Task>();
+        table.setEditable(true);
+        TableColumn<Task, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        TableColumn<String, Task> titleColumn = new TableColumn<>("Title");
+        TableColumn<Task, String> titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        TableColumn<String, Task> categoryColumn = new TableColumn<>("Category");
+        TableColumn<Task, String> categoryColumn = new TableColumn<>("Category");
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
-        TableColumn<String, Task> difficultyColumn = new TableColumn<>("Difficulty");
+        TableColumn<Task, String> difficultyColumn = new TableColumn<>("Difficulty");
         difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
-        TableColumn<String, Task> doneColumn = new TableColumn<>("Done");
+        TableColumn<Task, String> doneColumn = new TableColumn<>("Done");
         doneColumn.setCellValueFactory(new PropertyValueFactory<>("done"));
-        table.getColumns().add(idColumn);
-        table.getColumns().add(titleColumn);
-        table.getColumns().add(categoryColumn);
-        table.getColumns().add(difficultyColumn);
-        table.getColumns().add(doneColumn);
-        
+        table.getColumns().addAll(idColumn, titleColumn, categoryColumn, difficultyColumn, doneColumn);
         return table;
     }
     
+    private HBox createSearchBox() {
+        ChoiceBox<String> choiceSearchBox = new ChoiceBox();
+        choiceSearchBox.getItems().addAll("Title", "Category", "Difficulty", "Done");
+        choiceSearchBox.setValue("Title");
+        TextField searchInput = createSearchInput(choiceSearchBox);
+        choiceSearchBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                searchInput.setText("");
+                filteredData.setPredicate(null);
+            }
+        });
+        HBox searchBox = new HBox();
+        searchBox.getChildren().addAll(choiceSearchBox, searchInput);
+        return searchBox;
+    }
+    
+    private TextField createSearchInput(ChoiceBox<String> choiceSearchBox) {
+        TextField searchInput = new TextField();
+        searchInput.setOnKeyReleased(keyEvent -> {
+            switch (choiceSearchBox.getValue()) {
+                case "Title":
+                    filterWithTitle(searchInput);
+                    break;
+                case  "Category":
+                    filterWithCategory(searchInput);
+                    break;
+                case "Difficulty":
+                    filterWithDifficulty(searchInput);
+                    break;
+                case "Done":
+                    filterWithDone(searchInput);
+                    break;
+            }
+        });
+        return searchInput;
+    }
+    
+    private void filterWithTitle(TextField searchInput) {
+        if (searchInput.getText().trim().isEmpty()) {
+            filteredData.setPredicate(null);
+        } else {
+            filteredData.setPredicate(t -> t.getTitle().toLowerCase().contains(searchInput.getText().toLowerCase().trim()));
+        }
+    }
+    
+    private void filterWithCategory(TextField searchInput) {
+        if (searchInput.getText().trim().isEmpty()) {
+            filteredData.setPredicate(null);
+        } else {
+            filteredData.setPredicate(t -> t.getDifficulty() == Integer.valueOf(searchInput.getText().trim()));
+        }
+    }
+    
+    private void filterWithDifficulty(TextField searchInput) {
+        if (searchInput.getText().trim().isEmpty()) {
+            filteredData.setPredicate(null);
+        } else {
+            filteredData.setPredicate(t -> t.getCategoryId() == Integer.valueOf(searchInput.getText().trim()));
+        }
+    }
+    
+    private void filterWithDone(TextField searchInput) {
+        if (searchInput.getText().trim().isEmpty()) {
+            filteredData.setPredicate(null);
+        } else {
+            filteredData.setPredicate(t -> Boolean.toString(t.getDone()).contains(searchInput.getText().toLowerCase().trim()));
+        }
+    }
+    
     public void redrawTasklist() {
-        tableView.getItems().clear();
-        List<Task> tasks = algoritmitehtavageneraattoriService.getTasks();
-        Collections.sort(tasks);
-        tasks.forEach((task) -> {
-            tableView.getItems().add(task);
-        }); 
+        ObservableList<Task> data = FXCollections.observableList(algoritmitehtavageneraattoriService.getTasks());
+        filteredData = new FilteredList(data, t -> true);
+        tableView.setItems(filteredData);
+        tableView.refresh();
     }
     
     public void updateUserLabel() {
