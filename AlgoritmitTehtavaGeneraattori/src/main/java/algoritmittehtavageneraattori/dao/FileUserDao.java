@@ -22,7 +22,7 @@ public class FileUserDao implements UserDao {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
-                if(!line.trim().isEmpty()) {
+                if (!line.trim().isEmpty()) {
                     String[] parts = line.split(";");
                     int points = Integer.valueOf(parts[2]);
                     User u = new User(parts[0], parts[1], points);
@@ -30,7 +30,6 @@ public class FileUserDao implements UserDao {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     
@@ -42,7 +41,6 @@ public class FileUserDao implements UserDao {
             }
             writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     

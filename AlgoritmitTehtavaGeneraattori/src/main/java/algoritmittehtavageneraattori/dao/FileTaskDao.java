@@ -26,23 +26,19 @@ public class FileTaskDao implements TaskDao {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
-                if(!line.trim().isEmpty()) {
+                if (!line.isEmpty()) {
                     String[] parts = line.split(";");
                     int difficulty = Integer.valueOf(parts[3]);
-                    int categoryId = Integer.valueOf(parts[6]);
                     int id = tasks.size() + 1;
-                    String input = parts[7];
-                    User taskUser = users.findByUsername(parts[8]);
-                    //User taskUser = users.getAll().stream().filter(user -> user.getUsername().equals(parts[8])).findFirst().orElse(null);
-                    Task t = new Task(parts[0], parts[1], parts[2], difficulty, id, categoryId, input, taskUser);
+                    int categoryId = Integer.valueOf(parts[6]);
+                    Task t = new Task(parts[0], parts[1], parts[2], difficulty, id, categoryId, parts[7], users.findByUsername(parts[8]));
                     if (Boolean.valueOf(parts[5])) {
                         t.setDone();
-                }
+                    }
                     tasks.add(t);
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     
@@ -56,7 +52,6 @@ public class FileTaskDao implements TaskDao {
             }
             writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     
@@ -76,6 +71,7 @@ public class FileTaskDao implements TaskDao {
     public void loadNewTasks() {
         tasks.clear();
         load();
+        save();
     }
     
     @Override
