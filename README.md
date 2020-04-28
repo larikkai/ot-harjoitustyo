@@ -13,6 +13,8 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla teht�
 
 [Arkkitehtuurikuvaus](/AlgoritmitTehtavaGeneraattori/dokumentointi/arkkitehtuuri.md)
 
+[Käyttöohje](/AlgoritmitTehtavaGeneraattori/dokumentointi/kayttoohje.md)
+
 ## Releaset
 [Viikko 5](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko5)
 
