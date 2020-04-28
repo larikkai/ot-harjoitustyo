@@ -427,7 +427,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         return label;
     }
     
-    public HBox createSingleTaskResultPane() {
+    private HBox createSingleTaskResultPane() {
         HBox pane = new HBox(10);
         TextField singleTaskUserInput = new TextField();
         singleTaskUserInput.setMaxWidth(100);
@@ -448,7 +448,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         return pane;
     }
     
-    public void update() {
+    private void update() {
         updateUserLabel();
         redrawTasklist();
     }
@@ -545,14 +545,14 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         }
     }
     
-    public void redrawTasklist() {
+    private void redrawTasklist() {
         ObservableList<Task> data = FXCollections.observableList(algoritmitehtavageneraattoriService.getTasks());
         filteredData = new FilteredList(data, t -> true);
         tableView.setItems(filteredData);
         tableView.refresh();
     }
     
-    public void updateUserLabel() {
+    private void updateUserLabel() {
         menuUserLabel.setText(algoritmitehtavageneraattoriService.getLoggedUser().getUsername() + " : "
                         + algoritmitehtavageneraattoriService.getLoggedUser().getPoints() + " points");
     }
