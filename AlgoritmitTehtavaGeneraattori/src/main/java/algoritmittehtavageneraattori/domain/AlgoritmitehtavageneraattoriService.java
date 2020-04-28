@@ -88,7 +88,7 @@ public class AlgoritmitehtavageneraattoriService {
         if (!BCrypt.checkpw(userInputResult, task.getResult())) {
             return false;
         }
-        if(!task.getDone()) {
+        if (!task.getDone()) {
             loggedIn.setPoints(task.getDifficulty());
             markSolved(task.getId());
         }
