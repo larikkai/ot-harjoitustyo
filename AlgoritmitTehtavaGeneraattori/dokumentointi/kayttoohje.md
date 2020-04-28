@@ -1,7 +1,7 @@
 # Algoritmittehtavageneraattori käyttöohje
 
 ## Sovellus
-Lataa sovellus [AlgoritmitTehtavaGeneraattoriApp.jar](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko5/AlgoritmitTehtavaGeneraattoriApp.jar)
+Lataa sovellus [AlgoritmitTehtavaGeneraattoriApp.jar](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko6/AlgoritmitTehtavaGeneraattoriApp.jar)
 
 ## Konfigurointi
 Sovellus olettaa, että hakemistossa jossa jar suoritetaan on config.properties. Tiedoston avulla sovelluksen tallentamat tiedot talletetaan oikein.
@@ -10,7 +10,7 @@ Voit luoda tiedoston komentoriviltä komennolla:
 ```
 echo $'userFile=users.txt\ntaskFile=tasks.txt' >config.properties
 ```
-tai halutessasi ladata valmiiksi tehdyn [config.properties](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko5/config.properties)
+tai halutessasi ladata valmiiksi tehdyn [config.properties](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko6/config.properties)
 
 ## Ohjelman käynnistäminen
 Ohjelman voi käynnistää klikkaamalla kuvaketta tai komentoriviltä komennolla:
@@ -50,8 +50,8 @@ Jos validointi menee läpi pääset sisään sovellukseen:
 
 ![sovellus alkunakyma](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_alkunakyma.PNG "Algoritmittehtavageneraattori sovellus alkunakyma")
 
-## Uuden tehtavan luominen
-Alkunakymästä klikkaamalla "new task" pääset luomaan uuden tehtävän:
+## Uuden tehtävän luominen
+Alkunäkymästä klikkaamalla "new task" pääset luomaan uuden tehtävän:
 
 ![sovellus uusi tehtava](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi_t.PNG "Algoritmittehtavageneraattori uusi tehtava")
 
@@ -68,7 +68,7 @@ Jos validointi ei mene läpi käyttäjälle näytetään virheilmoitus:
 
 ![sovellus uusi tehtava fail](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi_t_fail.PNG "Algoritmittehtavageneraattori uusi tehtava FAIL")
 
-## Uusien tehtavien tuominen tiedostosta
+## Uusien tehtävien tuominen tiedostosta
 
 Käyttäjä voi tuoda tehtatehtäviä tiedostosta jos tiedoston rakenne on oikea.
 
@@ -83,14 +83,14 @@ Onnistuneen latauksen jälkeen tehtävät siirtyvät käyttäjän tehtävälista
 
 ![sovellus uusi tehtavalista OK](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi_tehtavalista_ok.PNG "Algoritmittehtavageneraattori uusi tehtavalista OK")
 
-### Tehtavien lisaaminen nykyiseen tehtavalistaan
+### Tehtävien lisaaminen nykyiseen tehtavalistaan
 Klikkaamalla "File -> load new tasks to list" käyttäjä voi tuoda uusia tehtäviä nykyiseen listaan:
 
 ![sovellus uusia tehtavia](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_lisaa_tehtavalistaan.PNG "Algoritmittehtavageneraattori sovellus uusia tehtavia")
 
 Käyttäjälle aukeaa tiedoston haku hakemistosta, kaksoisklikkaa tehtävälista-tiedostoa tai valitse tiedosto hiirellä ja paina valitse. Tämän jälkeen aukeaa uusi haku hakemisto jossa valitaan missa sovelluksen nykyinen tehtävälista sijaitsee.
 
-## Tehtavan ratkaiseminen
+## Tehtävän ratkaiseminen
 Käyttäjä voi valita tehtävän, jonka haluaa ratkaista klikkaaamalla tehtävää tehtävä näkymästä. Kun tehtävä on valittu, tehtävän tiedot aukeavat.
 
 Täyttämällä ratkaisun ja painamalla "Solve" käyttäjä voi ratkaista tehtävän jos vastaus on oikein:
@@ -105,5 +105,15 @@ Jos vastaus on väärin, näytetään käyttäjälle virheilmoitus:
 
 ![sovellus tehtavan rat fail](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_tehtavan_r_fail.PNG "Algoritmittehtavageneraattori tehtava rat FAIL")
 
-## Kayttajan tiedot
+## Käyttajän tiedot
 Kun käyttäjä ratkaisee tehtävän, käyttäjälle lisätään pisteitä tehtävän vaikeusasteen verran. Pisteitä voi saada vain kerran yhdestä tehtävästä. Pisteet päivittyvät menupalkkiin käyttäjän nähtäväksi.
+
+## Muuta
+Kuten aikaisemmin kuvattu, tehtäviä tiedostosta lisättäessä tulee tiedoston rakenne olla oikea. Voit hyödyntää valmiiksi tehtyä tiedostoa:
+[load.txt](/AlgoritmitTehtavaGeneraattori/dokumentointi/tiedostoja/load.txt "tehtava tiedosto")
+
+Tehtävät ovat käyttäjä kohtaisia, joten ennen käyttöä muuta load tiedostossa olevat käyttäjään viittaavat tiedot manuaalisesti käsin tai
+komentoriviltä komennolla:
+```
+sed -i 's/username/luomasi_kayttajanimi/g' load.txt
+```

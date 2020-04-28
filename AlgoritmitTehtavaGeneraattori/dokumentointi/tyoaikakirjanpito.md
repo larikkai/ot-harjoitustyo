@@ -20,5 +20,5 @@
 | 25.4  | 4    | koodikatselmointi |
 | 26.4  | 6    | paranna koodin laatua kurssin vaatimusten mukaiseksi |
 | 26.4  | 2    | Tiedostosta luennan ja uuden tehtävän syotteiden validointi, tehtävien haku parametreilla |
-| 28.4  | 9    | JavaDoc, lisää testejä, alustava käyttöohje, päivitä dokumentaatiota, korjaa bugeja |
-| yht   | 85   | | 
+| 28.4  | 12   | JavaDoc, lisää testejä, korjaa bugeja, release, alustava käyttöohje ja päivitä dokumentaatiota, koodikatselmointi |
+| yht   | 87   | | 

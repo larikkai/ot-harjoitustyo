@@ -17,6 +17,7 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla teht�
 
 ## Releaset
 [Viikko 5](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko5)
+[Viikko 6](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko6)
 
 ## Komentorivitoiminnot
 
@@ -38,7 +39,7 @@ Testikattavuusraportin voi luoda komennolla
 ```
 mvn jacoco:report
 ```
-Testien kattavuusraporttia voi tarkastella avaamalla tiedoston _/target/site/jacoco/index.html_
+Testien kattavuusraporttia voi tarkastella avaamalla tiedoston _target/site/jacoco/index.html_
 
 ### Checkstyle
 
@@ -46,14 +47,14 @@ Checkstyle on käytössä ja määritykset löytyvät tiedostosta [checkstyle.xm
 ```
 mvn jxr:jxr checkstyle:checkstyle
 ```
-Checkstyle-raporttia voi tarkastella avaamalla tiedoston _/target/site/checkstyle.html_
+Checkstyle-raporttia voi tarkastella avaamalla tiedoston _target/site/checkstyle.html_
 
 ### Suoritettavan jarin generointi
 Komennolla:
 ```
 mvn package
 ```
-generoidaan suoritettava AlgoritmitTehtavaGeneraattori-1.0-SNAPSHOT.jar tiedosto hakemistoon _/target_
+generoidaan suoritettava AlgoritmitTehtavaGeneraattori-1.0-SNAPSHOT.jar tiedosto hakemistoon _target_
 
 Jar suoritetaan komennolla:
 ```
@@ -64,4 +65,4 @@ JavaDoc :n saa generoitua komennolla:
 ```
 mvn javadoc:javadoc
 ```
-Generoitua JavaDoci :a voi tarkastella hakemistossa _/target/site/apidocs/index.html_
+Generoitua JavaDoci :a voi tarkastella hakemistossa _target/site/apidocs/index.html_
