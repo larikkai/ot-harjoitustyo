@@ -27,4 +27,4 @@ Kirjautunut käyttäjä voi ratkaista tehtäviä ja luoda tai tuoda uusia tehtä
 
 ## Jatkokehitysideoita
 -	[ ] käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
--   [tehty_week6] tehtäviä voi hakea nimen, vaikeuden, kategorian tai onko ratkaistu perusteella
+-   [tehty_viikko6] tehtäviä voi hakea nimen, vaikeuden, kategorian tai onko ratkaistu perusteella
