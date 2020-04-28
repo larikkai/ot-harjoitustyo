@@ -524,7 +524,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         if (searchInput.getText().trim().isEmpty()) {
             filteredData.setPredicate(null);
         } else {
-            filteredData.setPredicate(t -> t.getDifficulty() == Integer.valueOf(searchInput.getText().trim()));
+            filteredData.setPredicate(t -> t.getCategoryId() == Integer.valueOf(searchInput.getText().trim()));
         }
     }
     
@@ -532,7 +532,7 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
         if (searchInput.getText().trim().isEmpty()) {
             filteredData.setPredicate(null);
         } else {
-            filteredData.setPredicate(t -> t.getCategoryId() == Integer.valueOf(searchInput.getText().trim()));
+            filteredData.setPredicate(t -> t.getDifficulty() == Integer.valueOf(searchInput.getText().trim()));
         }
     }
     
