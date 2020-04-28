@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import algoritmittehtavageneraattori.domain.User;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class FileUserDao implements UserDao {
     private List<User> users;
@@ -29,7 +31,7 @@ public class FileUserDao implements UserDao {
                     users.add(u);
                 }
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException | NumberFormatException e) {
         }
     }
     
@@ -40,7 +42,7 @@ public class FileUserDao implements UserDao {
                 writer.write(user.getUsername() + ";" + user.getPassword() + ";" + user.getPoints() + "\n");
             }
             writer.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
         }
     }
     

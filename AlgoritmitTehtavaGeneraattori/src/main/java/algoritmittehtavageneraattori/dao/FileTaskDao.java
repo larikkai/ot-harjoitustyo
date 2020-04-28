@@ -3,7 +3,6 @@ package algoritmittehtavageneraattori.dao;
 import java.util.List;
 import java.util.ArrayList;
 import algoritmittehtavageneraattori.domain.Task;
-import algoritmittehtavageneraattori.domain.User;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
@@ -82,11 +81,9 @@ public class FileTaskDao implements TaskDao {
     
     @Override
     public void setDone(int id) throws Exception {
-        for (Task t : tasks) {
-            if (t.getId() == id) {
-                t.setDone();
-            }
-        }
+        tasks.stream().filter((t) -> (t.getId() == id)).forEachOrdered((t) -> {
+            t.setDone();
+        });
         save();
     }
 
