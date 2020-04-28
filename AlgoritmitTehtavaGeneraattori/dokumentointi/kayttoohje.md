@@ -23,10 +23,11 @@ Sovellus aukeaa alkunäkymään:
 
 ## Uuden käyttäjän luominen
 Uuden kayttajan voi luoda klikkaamalla aloitusnäkymästä "create new user".
+
 Uuden käyttäjän validointi:
    - Username taytyy olla pituudeltaan 3-10 merkkiä
    - Password täytyy olla pituudeltaan vähintään 8 merkkiä.
-
+   - Username täytyy olla uniikki
 
 ![uusi kayttaja](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi.PNG "Algoritmittehtavageneraattori uusi kayttaja")
 
@@ -36,12 +37,16 @@ Klikkaamalla "create" luodaan uusi käyttäjä jos validointi menee läpi:
 
 Jos validointi ei mene läpi käyttäjälle näytetään virheilmoitus:
 
-![uusi kayttaja fail](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi_ok.PNG "Algoritmittehtavageneraattori uusi kayttaja FAIL")
+![uusi kayttaja fail](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi_fail.PNG "Algoritmittehtavageneraattori uusi kayttaja FAIL")
 
 ## Kirjautuminen
 Kun käyttäjä on luotu, voidaan kirjautua. Pääset takaisin kirjautumislomakkeelle klikkaamalla "back to login".
 
-Täytä kirjautumistietosi ja klikkaa login. Jos validointi menee läpi pääset sisään sovellukseen:
+Täytä kirjautumistietosi ja klikkaa login. 
+
+![sovellus kirjautuminen](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_kirjautuminen.PNG "Algoritmittehtavageneraattori sovellus kirjautuminen")
+
+Jos validointi menee läpi pääset sisään sovellukseen:
 
 ![sovellus alkunakyma](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_alkunakyma.PNG "Algoritmittehtavageneraattori sovellus alkunakyma")
 
@@ -57,7 +62,7 @@ Uuden tehtävän validointi:
 
 Klikkaamalla "create" luodaan uusi tehtävä jos validointi menee läpi. Tehtävä lisätään käyttäjän tehtävälistaan:
 
-![sovellus uusi tehtava ok](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_tehtavan_r_ok.PNG "Algoritmittehtavageneraattori uusi tehtava OK")
+![sovellus uusi tehtava ok](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_uusi_t_ok.PNG "Algoritmittehtavageneraattori uusi tehtava OK")
 
 Jos validointi ei mene läpi käyttäjälle näytetään virheilmoitus:
 
@@ -98,7 +103,7 @@ Mikäli vastaus on oikein tehtävä merkitään tehdyksi ja käyttäjälle näyt
 
 Jos vastaus on väärin, näytetään käyttäjälle virheilmoitus:
 
-![sovellus tehtavan rat fail](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_tehtavan_r_ok.PNG "Algoritmittehtavageneraattori tehtava rat FAIL")
+![sovellus tehtavan rat fail](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_tehtavan_r_fail.PNG "Algoritmittehtavageneraattori tehtava rat FAIL")
 
 ## Kayttajan tiedot
 Kun käyttäjä ratkaisee tehtävän, käyttäjälle lisätään pisteitä tehtävän vaikeusasteen verran. Pisteitä voi saada vain kerran yhdestä tehtävästä. Pisteet päivittyvät menupalkkiin käyttäjän nähtäväksi.
