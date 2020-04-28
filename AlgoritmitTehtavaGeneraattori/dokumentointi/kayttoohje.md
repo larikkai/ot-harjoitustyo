@@ -110,7 +110,7 @@ Kun käyttäjä ratkaisee tehtävän, käyttäjälle lisätään pisteitä teht�
 
 ## Muuta
 Kuten aikaisemmin kuvattu, tehtäviä tiedostosta lisättäessä tulee tiedoston rakenne olla oikea. Voit hyödyntää valmiiksi tehtyä tiedostoa:
-[load.txt](/AlgoritmitTehtavaGeneraattori/dokumentointi/tiedostoja/load.txt "tehtava tiedosto")
+[load.txt](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko6/load.txt "tehtava tiedosto")
 
 Tehtävät ovat käyttäjä kohtaisia, joten ennen käyttöä muuta load tiedostossa olevat käyttäjään viittaavat tiedot manuaalisesti käsin tai
 komentoriviltä komennolla:
