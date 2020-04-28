@@ -151,8 +151,6 @@ public class AlgoritmitehtavageneraattoriService {
         try {
             taskDao.setDone(id);
             userDao.savePoints(loggedIn);
-            System.out.println("KAYTTAJAN PISTEET: "+loggedIn.getPoints());
-            System.out.println("KAYTTAJAN PISTEET: "+userDao.findByUsername(loggedIn.getUsername()).getPoints());
         } catch (Exception e3) {
         }
     }
