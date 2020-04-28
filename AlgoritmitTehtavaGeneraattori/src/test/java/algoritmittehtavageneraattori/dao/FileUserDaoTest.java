@@ -35,7 +35,7 @@ public class FileUserDaoTest {
     @Test
     public void returnCreatedUser() {
         User user = userDao.findByUsername("testuser");
-        assertTrue(user != null);
+        assertEquals("testuser", user.getUsername());
     }
     
     @Test
