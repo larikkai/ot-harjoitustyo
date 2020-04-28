@@ -36,7 +36,7 @@ Testikattavuusraportin voi luoda komennolla
 ```
 mvn jacoco:report
 ```
-Testien kattavuusraporttia voi tarkastella avaamalla tiedoston target/site/jacoco/index.html
+Testien kattavuusraporttia voi tarkastella avaamalla tiedoston _/target/site/jacoco/index.html_
 
 ### Checkstyle
 
@@ -44,16 +44,22 @@ Checkstyle on käytössä ja määritykset löytyvät tiedostosta [checkstyle.xm
 ```
 mvn jxr:jxr checkstyle:checkstyle
 ```
-Checkstyle-raporttia voi tarkastella avaamalla tiedoston /target/site/checkstyle.html
+Checkstyle-raporttia voi tarkastella avaamalla tiedoston _/target/site/checkstyle.html_
 
 ### Suoritettavan jarin generointi
 Komennolla:
 ```
 mvn package
 ```
-generoidaan suoritettava AlgoritmitTehtavaGeneraattori-1.0-SNAPSHOT.jar tiedosto hakemistoon target
+generoidaan suoritettava AlgoritmitTehtavaGeneraattori-1.0-SNAPSHOT.jar tiedosto hakemistoon _/target_
 
 Jar suoritetaan komennolla:
 ```
 java -jar tiedoston_nimi.jar
 ```
+### JavaDoc
+JavaDoc :n saa generoitua komennolla:
+```
+mvn javadoc:javadoc
+```
+Generoitua JavaDoci :a voi tarkastella hakemistossa _/target/site/apidocs/index.html_
