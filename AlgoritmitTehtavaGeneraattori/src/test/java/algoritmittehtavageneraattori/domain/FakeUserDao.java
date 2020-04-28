@@ -36,4 +36,9 @@ public class FakeUserDao implements UserDao {
         return users;
     }
     
+    @Override
+    public User savePoints(User user) {
+        return user;
+    }
+    
 }

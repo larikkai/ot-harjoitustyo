@@ -24,5 +24,11 @@ public interface UserDao {
      * @return A list representing all users
      */
     List<User> getAll();
+    /** Save user points to users file
+     * 
+     * @param user
+     * @return 
+     */
+    User savePoints(User user);
     
 }

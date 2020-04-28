@@ -61,5 +61,11 @@ public class FileUserDao implements UserDao {
         users.add(user);
         save();
         return user;
-    }    
+    }
+
+    @Override
+    public User savePoints(User user) {
+        save();
+        return user;
+    }
 }

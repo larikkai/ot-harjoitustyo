@@ -88,7 +88,10 @@ public class AlgoritmitehtavageneraattoriService {
         if (!BCrypt.checkpw(userInputResult, task.getResult())) {
             return false;
         }
-        loggedIn.setPoints(task.getDifficulty());
+        if(!task.getDone()) {
+            loggedIn.setPoints(task.getDifficulty());
+            markSolved(task.getId());
+        }
         return true;
     }
     /** creates the task and connects it to the logged in user
@@ -147,6 +150,9 @@ public class AlgoritmitehtavageneraattoriService {
     public void markSolved(int id) {
         try {
             taskDao.setDone(id);
+            userDao.savePoints(loggedIn);
+            System.out.println("KAYTTAJAN PISTEET: "+loggedIn.getPoints());
+            System.out.println("KAYTTAJAN PISTEET: "+userDao.findByUsername(loggedIn.getUsername()).getPoints());
         } catch (Exception e3) {
         }
     }
