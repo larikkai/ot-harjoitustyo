@@ -21,4 +21,5 @@
 | 26.4  | 6    | paranna koodin laatua kurssin vaatimusten mukaiseksi |
 | 26.4  | 2    | Tiedostosta luennan ja uuden tehtävän syotteiden validointi, tehtävien haku parametreilla |
 | 28.4  | 12   | JavaDoc, lisää testejä, korjaa bugeja, release, alustava käyttöohje ja päivitä dokumentaatiota, koodikatselmointi |
-| yht   | 87   | | 
+| 6.5   | 7    | Viikko 7 todo, dokumentaation päivittäminen, palaute (viikko6), kuvien korjaaminen, templates .gitignoreen |
+| yht   | 94  | | 

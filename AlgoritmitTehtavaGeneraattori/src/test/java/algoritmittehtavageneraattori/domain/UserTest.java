@@ -25,7 +25,7 @@ public class UserTest {
     }
     
     @Test
-    public void userWithoutSameUsernameAreNotEqual() {
+    public void differentUsernameAreNotEqual() {
         assertFalse(user2.equals(user3));
     }
     

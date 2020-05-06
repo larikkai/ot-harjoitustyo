@@ -21,7 +21,8 @@ public class AlgoritmittehtavageneraattoriServiceTest {
     }
     
     public void ifUsernameTakenCreatingNewUserFail() {
-        assertFalse(algoritmitehtavageneraattoriService.createUser("testuser", "test"));
+        assertTrue(algoritmitehtavageneraattoriService.createUser("testuser2", "test"));
+        assertFalse(algoritmitehtavageneraattoriService.createUser("testuser2", "test"));
     }
     
     @Test
@@ -95,6 +96,17 @@ public class AlgoritmittehtavageneraattoriServiceTest {
         loginUserAndCreateTask();
         Task task = algoritmitehtavageneraattoriService.getTasks().get(0);
         assertFalse(algoritmitehtavageneraattoriService.compareResults("1", task));
+    }
+    
+    @Test
+    public void task() {
+        loginUserAndCreateTask();
+        algoritmitehtavageneraattoriService.markSolved(1);
+        Task task = algoritmitehtavageneraattoriService.getTasks().get(0);
+        try {
+            algoritmitehtavageneraattoriService.markSolved(999);
+        } catch (AssertionError exception) {
+        }
     }
     
     public void loginUserAndCreateTask() {

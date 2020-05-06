@@ -7,7 +7,7 @@ joilla jokaisella on oma yksilöllinen etenemistaso.
 
 ## Käyttäjät
 
-Kirjautunut käyttäjä voi ratkaista tehtäviä ja luoda tai tuoda uusia tehtäviä.
+Kirjautunut käyttäjä voi luoda tai tuoda uusia tehtäviä sekä ratkaista tehtäviä.
 
 ## Toiminnallisuus
 
@@ -19,12 +19,25 @@ Kirjautunut käyttäjä voi ratkaista tehtäviä ja luoda tai tuoda uusia tehtä
 - käyttäjä voi kirjautua järjestelmään.
 
 ### Kirjautumisen jälkeen
-- käyttäjä voi ratkaista tehtäviä
-- käyttäjä voi kirjautua ulos
+- käyttäjä näkee omat tehtävänsä
 - käyttäjä voi luoda uuden tehtävän
 - käyttäjä voi tuoda tehtäviä tiedostosta
+- käyttäjä voi ratkaista tehtäviä
+- käyttäjä voi kirjautua ulos
 - käyttäjä kohtaiset pisteet
+- tehtäviä voi hakea nimen, vaikeuden, kategorian tai onko tehtävä ratkaistu perusteella
 
 ## Jatkokehitysideoita
--	[ ] käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
--   [tehty_viikko6] tehtäviä voi hakea nimen, vaikeuden, kategorian tai onko ratkaistu perusteella
+- lisää käyttäjärooleja
+   - pääkäyttäjä:
+      - näkee kaikki tehtävät
+      - voi muuttaa tehtävien vaikeusastetta
+      - käyttäjä hallinta
+	     - lisäys
+		 - poisto
+
+- käyttäjä voi katsoa vinkin tai oppimateriaalia liittyen kyseiseen tehtävään
+- tehtävän voi ratkaista myös sovelluksessa
+- käyttäjä voi muokata itse luomiaan tehtäviä
+- tehtävän kategorian valitaan drop-valikosta jossa kategorioiden selitteet (esim. 1. - perusteet)
+- tietokannan käyttöönotto
