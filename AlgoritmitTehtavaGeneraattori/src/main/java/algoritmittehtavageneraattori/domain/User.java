@@ -18,32 +18,19 @@ public class User {
         this.password = password;
         this.points = points;
     }
-    /** Gets user's username
-     * 
-     * @return A string representing the user's username
-     */
+
     public String getUsername() {
         return this.username;
     }
-    /** Gets user's password
-     * 
-     * @return A string representing user's password
-     */
+
     public String getPassword() {
         return this.password;
     }
-    /** Gets users's points
-     * 
-     * @return An int representing user's points
-     */
+
     public int getPoints() {
         return this.points;
     }
-    /** Sets user's points by increasing points by specific value
-     * 
-     * @param value An int representing points to add to user's 
-     * existing points
-     */
+
     public void setPoints(int value) {
         this.points += value;
     }

@@ -1,0 +1,5 @@
+/**
+ * sovelluslogiikka
+ */
+
+  package algoritmittehtavageneraattori.domain;

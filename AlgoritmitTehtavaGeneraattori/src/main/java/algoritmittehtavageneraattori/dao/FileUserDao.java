@@ -9,16 +9,25 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * representing file userdao by implementing userdao
+ */
 public class FileUserDao implements UserDao {
     private List<User> users;
     private String file;
-
+    
+    /** Creates file userdao
+     * 
+     * @param file file where to save data
+     */
     public FileUserDao(String file) {
         users = new ArrayList<>();
         this.file = file;
         load();   
     }
-
+    /** Method to load data to app from file
+     * 
+     */
     private void load() {
         try {
             Scanner reader = new Scanner(new File(file));
@@ -34,7 +43,9 @@ public class FileUserDao implements UserDao {
         } catch (FileNotFoundException | NumberFormatException e) {
         }
     }
-    
+    /** Method to save data from app to file
+     * 
+     */
     private void save() {
         try {
             FileWriter writer = new FileWriter(new File(file));
@@ -45,24 +56,39 @@ public class FileUserDao implements UserDao {
         } catch (IOException e) {
         }
     }
-    
+    /** Method to retrieve all users
+     * 
+     * @return list representing users
+     */
     @Override
     public List<User> getAll() {
         return users;
     }
-    
+    /** Method to find user by username
+     * 
+     * @param username to seach
+     * @return return user or null
+     */
     @Override
     public User findByUsername(String username) {
         return users.stream().filter(u->u.getUsername().equals(username)).findFirst().orElse(null);
     }
-    
+    /** Method to add user to users-list and datafile
+     * 
+     * @param user to add
+     * @return added user
+     */
     @Override
     public User create(User user) {
         users.add(user);
         save();
         return user;
     }
-
+    /** Method to save users points to datafile
+     * 
+     * @param user representing user to save
+     * @return saved user
+     */
     @Override
     public User savePoints(User user) {
         save();

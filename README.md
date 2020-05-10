@@ -22,6 +22,8 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla teht�
 
 [Viikko 6](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko6)
 
+[Viikko 7](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko7)
+
 ## Komentorivitoiminnot
 
 ### Koodin suorittaminen

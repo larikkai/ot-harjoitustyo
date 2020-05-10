@@ -26,8 +26,8 @@ public interface UserDao {
     List<User> getAll();
     /** Save user points to users file
      * 
-     * @param user
-     * @return 
+     * @param user user to update
+     * @return updated user
      */
     User savePoints(User user);
     

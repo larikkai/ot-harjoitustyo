@@ -133,14 +133,20 @@ public class AlgoritmitehtavageneraattoriService {
         });
         return loggedInTasks;
     }
-    /**
-     * Loads new tasks
+    /** Loads new tasks
+     *
+     * @param file to where to load tasks
+     * @throws IOException throw if exception
      */
     public void loadTasks(File file) throws IOException {
         taskDao.loadNewTasks(file);
     }
     /**
      * Adds new tasks
+     * 
+     * @param file input-file from user where to add new tasks existing task list
+     * 
+     * @throws IOException throw if exception
      */
     public void addTasks(File file) throws IOException {
         taskDao.addNewTasks(file);

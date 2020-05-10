@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 
+ * Represents tasks databasedao by implementing taskdao
+ * 
+ */
+
 public class DBTaskDao implements TaskDao {
     
     private List<Task> tasks;
@@ -18,12 +24,21 @@ public class DBTaskDao implements TaskDao {
     private UserDao userDao;
     private String dbName;
     
+    /** Creates tasktable to database
+     * 
+     * @param name representing database name
+     * @param userDao representing users
+     */
     public DBTaskDao(String name, UserDao userDao) {
         this.dbName = name;
         this.userDao = userDao;
         createDB();
     }
     
+    /**
+     * creates tasktable with id, title, description, result, difficulty,
+     * categoryId, input, done and username colums
+     */
     private void createDB() {
         String sql = "CREATE TABLE TASK " +
                 "(id bigint auto_increment PRIMARY KEY, " +
@@ -37,7 +52,13 @@ public class DBTaskDao implements TaskDao {
                 " username VARCHAR(255) not NULL)";
         connect("createTable", sql);
     }
-
+    
+    /** Adds task to database
+     * 
+     * @param task to add to database
+     * @return crated task
+     * @throws Exception throws if exception
+     */
     @Override
     public Task create(Task task) throws Exception {
         String sql = "INSERT INTO Task (title, description, result, difficulty, categoryId, input, done, username) VALUES ('"
@@ -46,14 +67,20 @@ public class DBTaskDao implements TaskDao {
         connect("createTask", sql);
         return task;
     }
-
+    /**
+     * 
+     * @return all tasks from database
+     */
     @Override
     public List<Task> getAll() {
         String sql = "SELECT * FROM Task";
         connect("getAll", sql);
         return tasks;
     }
-
+    /** Loads new tasks from file to database
+     * 
+     * @param file file where to read tasks
+     */
     @Override
     public void loadNewTasks(File file) {
         String sql = "DELETE FROM Task";
@@ -61,19 +88,30 @@ public class DBTaskDao implements TaskDao {
         tasks.clear();
         load(file);
     }
-
+    /** Adds new task to database
+     * 
+     * @param file file where to read tasks
+     */
     @Override
     public void addNewTasks(File file) {
         tasks.clear();
         load(file);
     }
-
+    /** Method to set task done in databasde
+     * 
+     * @param id representing tasks id to update
+     * @throws Exception throws if exception
+     */
     @Override
     public void setDone(int id) throws Exception {
         String sql = "UPDATE Task SET done = TRUE WHERE id = " + id;
         connect("setDone", sql);
     }
     
+    /** Method to load file
+     * 
+     * @param file to read
+     */
     public void load(File file) {
         try {
             Scanner reader = new Scanner(file);
@@ -94,7 +132,11 @@ public class DBTaskDao implements TaskDao {
         } catch (Exception e) {
         }
     }
-    
+    /** Method to execute database command to get all tasks
+     * 
+     * @param sql command to execute
+     * @throws SQLException throws if exception
+     */
     private void commandGetAll(String sql) throws SQLException {
         tasks = new ArrayList<>();
         ResultSet rs = stmt.executeQuery(sql); 
@@ -106,7 +148,11 @@ public class DBTaskDao implements TaskDao {
             tasks.add(task);
         }
     }
-    
+    /** Method to connect to database
+     * 
+     * @param command representing what should be done
+     * @param sql representing execute command
+     */
     private void connect(String command, String sql) {
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./" + dbName, "sa", "")) {
             stmt = conn.createStatement();

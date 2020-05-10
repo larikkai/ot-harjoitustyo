@@ -22,10 +22,12 @@ public interface TaskDao {
     List<Task> getAll();
     /**
      * Method to load new tasks list
+     * @param file where to load new task-list
      */
     void loadNewTasks(File file);
     /**
      * Method to add new tasks to current task list
+     * @param file where to add tasks
      */
     void addNewTasks(File file);
     /** Method to set task done

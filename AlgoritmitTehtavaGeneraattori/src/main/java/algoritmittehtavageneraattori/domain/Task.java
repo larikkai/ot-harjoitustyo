@@ -36,80 +36,47 @@ public class Task implements Comparable<Task> {
         this.input = input;
         this.user = user;
     }
-    /** Gets task's title
-     * 
-     * @return A string representing task's title
-     */
+
     public String getTitle() {
         return this.title;
     }
-    /** Gets task's description
-     * 
-     * @return A string representing task's description
-     */
+
     public String getDescription() {
         return this.description;
     }
-    /** Gets task's result
-     * 
-     * @return A string representing task's result
-     */
+
     public String getResult() {
         return this.result;
     }
-    /** Gets task's difficulty
-     * 
-     * @return An int representing task's difficulty
-     */
+
     public int getDifficulty() {
         return this.difficulty;
     }
-    /** Sets task's difficulty to specific value
-     * 
-     * @param difficulty An int representing task's new difficulty
-     */
+
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
-    /** Gets task's id
-     * 
-     * @return An int representing task's id
-     */
+ 
     public int getId() {
         return this.id;
     }
-    /** Gets task's done
-     * 
-     * @return A boolean representing if task's is completed
-     */
+
     public boolean getDone() {
         return this.done;
     }
-    /** Sets task's done
-     * 
-     * Sets task done to true
-     */
+
     public void setDone() {
         this.done = true;
     }
-    /** Gets task's categoryId
-     * 
-     * @return An int representing task's category
-     */
+
     public int getCategoryId() {
         return this.categoryId;
     }
-    /** Gets task's input
-     * 
-     * @return A String representing task's input
-     */
+ 
     public String getInput() {
         return this.input;
     }
-    /** Gets task's
-     * 
-     * @return A user representing the user added to the task
-     */
+
     public User getUser() {
         return this.user;
     }
