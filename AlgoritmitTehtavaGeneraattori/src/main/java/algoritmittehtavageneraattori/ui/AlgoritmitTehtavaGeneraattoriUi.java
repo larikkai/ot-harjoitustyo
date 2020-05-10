@@ -1,5 +1,7 @@
 package algoritmittehtavageneraattori.ui;
 
+import algoritmittehtavageneraattori.dao.DBTaskDao;
+import algoritmittehtavageneraattori.dao.DBUserDao;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,8 +21,6 @@ import algoritmittehtavageneraattori.domain.Task;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -63,12 +63,20 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
 
         properties.load(new FileInputStream("config.properties"));
         
-        String userFile = properties.getProperty("userFile");
-        String taskFile = properties.getProperty("taskFile");
+        String dataModel = properties.getProperty("data");
+        
+        if (dataModel.equals("db")) {
+            DBUserDao userDao = new DBUserDao("atgdatabase");
+            DBTaskDao taskDao = new DBTaskDao("atgdatabase", userDao);
+            algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao, taskDao);
+        } else {
+            String userFile = properties.getProperty("userFile");
+            String taskFile = properties.getProperty("taskFile");
+            FileUserDao userDao = new FileUserDao(userFile);
+            FileTaskDao taskDao = new FileTaskDao(taskFile, userDao);
+            algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao, taskDao);
+        }
 
-        FileUserDao userDao = new FileUserDao(userFile);
-        FileTaskDao taskDao = new FileTaskDao(taskFile, userDao);
-        algoritmitehtavageneraattoriService = new AlgoritmitehtavageneraattoriService(userDao, taskDao);
     }
     
     @Override
@@ -250,11 +258,9 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             fileChooser.setTitle("Load tasks file");
             configureFileChooser(fileChooser);
             File newTaskFile = fileChooser.showOpenDialog(primaryStage);
-            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
             if (newTaskFile != null) {
                 try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
-                    algoritmitehtavageneraattoriService.loadTasks();
+                    algoritmitehtavageneraattoriService.loadTasks(newTaskFile);
                     redrawTasklist();
                 } catch (IOException e) {
                 }
@@ -266,11 +272,9 @@ public class AlgoritmitTehtavaGeneraattoriUi extends Application {
             fileChooser.setTitle("Load tasks file");
             configureFileChooser(fileChooser);
             File newTaskFile = fileChooser.showOpenDialog(primaryStage);
-            File saveTaskFile = fileChooser.showSaveDialog(primaryStage);
             if (newTaskFile != null) {
                 try {
-                    Files.copy(newTaskFile.toPath(), saveTaskFile.toPath(), REPLACE_EXISTING);
-                    algoritmitehtavageneraattoriService.addTasks();
+                    algoritmitehtavageneraattoriService.addTasks(newTaskFile);
                     redrawTasklist();
                 } catch (IOException e) {
                 }

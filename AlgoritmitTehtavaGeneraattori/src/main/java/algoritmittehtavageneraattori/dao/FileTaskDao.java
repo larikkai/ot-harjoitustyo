@@ -17,12 +17,12 @@ public class FileTaskDao implements TaskDao {
         tasks = new ArrayList<>();
         this.file = file;
         this.users = users;
-        load();
+        load(new File(file));
     }
     
-    public void load() {
+    public void load(File file) {
         try {
-            Scanner reader = new Scanner(new File(file));
+            Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 if (!line.isEmpty()) {
@@ -67,15 +67,15 @@ public class FileTaskDao implements TaskDao {
     }
     
     @Override
-    public void loadNewTasks() {
+    public void loadNewTasks(File file) {
         tasks.clear();
-        load();
+        load(file);
         save();
     }
     
     @Override
-    public void addNewTasks() {
-        load();
+    public void addNewTasks(File file) {
+        load(file);
         save();
     }
     

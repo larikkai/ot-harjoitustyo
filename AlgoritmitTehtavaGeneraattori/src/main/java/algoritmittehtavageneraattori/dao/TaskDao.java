@@ -2,6 +2,7 @@ package algoritmittehtavageneraattori.dao;
 
 import java.util.List;
 import algoritmittehtavageneraattori.domain.Task;
+import java.io.File;
 /**
  * Interface for tasks
  *
@@ -22,11 +23,11 @@ public interface TaskDao {
     /**
      * Method to load new tasks list
      */
-    void loadNewTasks();
+    void loadNewTasks(File file);
     /**
      * Method to add new tasks to current task list
      */
-    void addNewTasks();
+    void addNewTasks(File file);
     /** Method to set task done
      * 
      * @param id An int representing specific task id

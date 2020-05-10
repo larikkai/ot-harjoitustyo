@@ -2,6 +2,8 @@ package algoritmittehtavageneraattori.domain;
 
 import algoritmittehtavageneraattori.dao.UserDao;
 import algoritmittehtavageneraattori.dao.TaskDao;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -134,14 +136,14 @@ public class AlgoritmitehtavageneraattoriService {
     /**
      * Loads new tasks
      */
-    public void loadTasks() {
-        taskDao.loadNewTasks();
+    public void loadTasks(File file) throws IOException {
+        taskDao.loadNewTasks(file);
     }
     /**
      * Adds new tasks
      */
-    public void addTasks() {
-        taskDao.addNewTasks();
+    public void addTasks(File file) throws IOException {
+        taskDao.addNewTasks(file);
     }
     /** Set task's with specific id solved
      * 
