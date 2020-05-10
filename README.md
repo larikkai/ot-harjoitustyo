@@ -24,6 +24,8 @@ Sovelluksen avulla käyttäjät voivat opiskella algoritmeja ratkaisemalla teht�
 
 [Viikko 7](https://github.com/larikkai/ot-harjoitustyo/releases/tag/viikko7)
 
+[Loppupalautus](https://github.com/larikkai/ot-harjoitustyo/releases/tag/loppupalautus)
+
 ## Komentorivitoiminnot
 
 ### Koodin suorittaminen
