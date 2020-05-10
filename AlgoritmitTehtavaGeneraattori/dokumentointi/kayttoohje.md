@@ -4,13 +4,27 @@
 Lataa sovellus [AlgoritmitTehtavaGeneraattoriApp.jar](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko6/AlgoritmitTehtavaGeneraattoriApp.jar)
 
 ## Konfigurointi
-Sovellus olettaa, että hakemistossa jossa jar suoritetaan on config.properties. Tiedoston avulla sovelluksen tallentamat tiedot talletetaan oikein.
+Sovellus olettaa, että hakemistossa jossa jar suoritetaan on config.properties. Tiedoston avulla valitaan sovelluksen käyttämä tiedontallennustapa ja on välttämätön sovelluksen toiminnan kannalta.
 
 Voit luoda tiedoston komentoriviltä komennolla:
 ```
-echo $'userFile=users.txt\ntaskFile=tasks.txt' >config.properties
+echo $'data=file\nuserFile=users.txt\ntaskFile=tasks.txt' >config.properties
 ```
-tai halutessasi ladata valmiiksi tehdyn [config.properties](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko6/config.properties)
+tai halutessasi ladata valmiiksi tehdyn [config.properties](https://github.com/larikkai/ot-harjoitustyo/releases/download/viikko7/config.properties)
+
+__teksitiedostoon tallennus__
+```
+data=file
+userFile=users.txt
+taskFile=tasks.tx
+```
+
+__h2-tietokanta__
+```
+data=db
+userFile=users.txt
+taskFile=tasks.tx
+```
 
 ## Ohjelman käynnistäminen
 Ohjelman voi käynnistää klikkaamalla kuvaketta tai komentoriviltä komennolla:
@@ -22,10 +36,10 @@ Sovellus aukeaa alkunäkymään:
 ![alkunakyma](/AlgoritmitTehtavaGeneraattori/dokumentointi/kuvat/sovellus_alku.PNG "Algoritmittehtavageneraattori alkunakyma")
 
 ## Uuden käyttäjän luominen
-Uuden kayttajan voi luoda klikkaamalla aloitusnäkymästä "create new user".
+Uuden käyttäjän voi luoda klikkaamalla aloitusnäkymästä "create new user".
 
 Uuden käyttäjän validointi:
-   - Username taytyy olla pituudeltaan 3-10 merkkiä
+   - Username täytyy olla pituudeltaan 3-10 merkkiä
    - Password täytyy olla pituudeltaan vähintään 8 merkkiä.
    - Username täytyy olla uniikki
 
@@ -117,3 +131,5 @@ komentoriviltä komennolla:
 ```
 sed -i 's/username/luomasi_kayttajanimi/g' load.txt
 ```
+
+Huomioithan, että tiedostolla josta tehtävät ladataan tulee olla kirjoitus- ja lukuoikeudet. Voit antaa oikeudet ladatulle load.txt tiedolle tai copypasteta sisällän itse luomaasi.

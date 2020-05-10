@@ -7,12 +7,13 @@ joilla jokaisella on oma yksilöllinen etenemistaso.
 
 ## Käyttäjät
 
-Kirjautunut käyttäjä voi luoda tai tuoda uusia tehtäviä sekä ratkaista tehtäviä.
+Kirjautunut käyttäjä voi luoda tai tuoda uusia tehtäviä sekä ratkaista tehtäviä. Käyttäjä voi myös valita tallennetaanko sovelluksen tiedot .txt vai h2-tietokantaan.
 
 ## Toiminnallisuus
 
 ### Ennen kirjautumista
 
+- käyttäjä voi valita tiedon tallennus tavan
 - käyttäjä voi luoda käyttäjätunnuksen
 	- tunnuksen täytyy olla uniikki ja pituudeltaan välillä 3-10 merkkiä
 	- salasanan täytyy olla vähintään 8 merkkiä pitkä
@@ -40,4 +41,4 @@ Kirjautunut käyttäjä voi luoda tai tuoda uusia tehtäviä sekä ratkaista teh
 - tehtävän voi ratkaista myös sovelluksessa
 - käyttäjä voi muokata itse luomiaan tehtäviä
 - tehtävän kategorian valitaan drop-valikosta jossa kategorioiden selitteet (esim. 1. - perusteet)
-- tietokannan käyttöönotto
+- käyttäjä voi valita tallennusmoodin sovelluksesta
