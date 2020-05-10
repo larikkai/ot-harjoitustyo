@@ -1,6 +1,7 @@
 package algoritmittehtavageneraattori.domain;
 
 import algoritmittehtavageneraattori.dao.TaskDao;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class FakeTaskDao implements TaskDao {
     }
 
     @Override
-    public void loadNewTasks() {
+    public void loadNewTasks(File file) {
         List<Task> newTasks = new ArrayList<>();
         newTasks.add(new Task(null, null, null, 1,1,1, null, null));
         newTasks.add(new Task(null, null, null, 1,2,1, null, null));
@@ -29,7 +30,7 @@ public class FakeTaskDao implements TaskDao {
     }
 
     @Override
-    public void addNewTasks() {
+    public void addNewTasks(File file) {
         tasks.add(new Task(null, null, null, 1,1,1, null, null));
     }
 
